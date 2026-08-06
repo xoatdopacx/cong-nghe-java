@@ -1,5 +1,24 @@
 # Công Nghệ Java
 
+> **Sinh viên:** Nguyễn Văn Hùng | **MSSV:** 20230752 | **Môn học:** Công Nghệ Java
+
+---
+
+## 📁 Cấu trúc
+
+```
+cong-nghe-java/
+├── Chuong1-CaiDatMoiTruong/
+│   ├── lab01-java-console/        # 5 bài toán Console (Maven)
+│   └── BaoCao_Lab1_NguyenVanHung_20230752.docx
+└── Chuong2-MavenProject/
+    └── lab02-java-maven-jar/      # Quản lý sinh viên, tính điểm (Maven)
+```
+
+---
+
+## 📗 Chương 1 – Cài đặt môi trường & Java SE Console
+
 > **Sinh viên:** Nguyễn Văn Hùng  
 > **MSSV:** 20230752  
 > **Môn học:** Công Nghệ Java
@@ -58,4 +77,38 @@ java -jar target/lab01-java-console-1.0-SNAPSHOT.jar
 ```
 .java ──(javac)──► .class (bytecode) ──(JVM/JIT)──► Thực thi
                                      ──(jar)──► .jar ──(java -jar)──► Thực thi
+```
+
+---
+
+## 📘 Chương 2 – Quản lý dự án với Maven & đóng gói JAR
+
+### Bài toán: Tính điểm tổng kết học phần
+
+**Công thức:** `Tổng kết = chuyên cần×10% + giữa kỳ×30% + cuối kỳ×60%`
+
+**Xếp loại:** A ≥ 8.5 | B ≥ 7.0 | C ≥ 5.5 | D ≥ 4.0 | F < 4.0
+
+### Cấu trúc project
+```
+lab02-java-maven-jar/
+├── pom.xml
+└── src/main/java/vn/edu/eaut/lab2/
+    ├── App.java              # Nhập liệu, hiển thị kết quả
+    ├── Student.java          # Model sinh viên
+    └── GradeCalculator.java  # Tính điểm, xếp loại, validate
+```
+
+### Chạy
+```bash
+cd Chuong2-MavenProject/lab02-java-maven-jar
+mvn clean package
+java -jar target/lab02-java-maven-jar-1.0-SNAPSHOT.jar
+```
+
+### Kiểm thử
+```
+Ma SV: 20230752 | Ho ten: Nguyen Van Hung
+Chuyen can: 8.0 | Giua ky: 7.0 | Cuoi ky: 9.0
+Tong ket: 8.30 → Xep loai: B
 ```
