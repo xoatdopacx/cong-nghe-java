@@ -30,7 +30,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>vn.edu.eaut.lab3.Bai01HelloSwing</mainClass>
+                            <mainClass>vn.edu.eaut.lab3.MainLauncher</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
