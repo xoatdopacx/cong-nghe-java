@@ -89,11 +89,17 @@ admin / 123456 → vai trò Admin
 user  / 123456 → vai trò User
 ```
 
-**Chạy từng bài:**
+**Chạy JAR (menu chọn bài):**
 ```bash
 cd Chuong3-JavaSwing/lab03-java-swing
-mvn clean compile
+mvn clean package
+java -jar target/lab03-java-swing-1.0-SNAPSHOT.jar
+# → Hiện cửa sổ MainLauncher, nhấn vào bài để mở
+```
 
+**Chạy từng bài riêng lẻ bằng Maven:**
+```bash
+mvn clean compile
 mvn exec:java -Dexec.mainClass="vn.edu.eaut.lab3.Bai01HelloSwing"
 mvn exec:java -Dexec.mainClass="vn.edu.eaut.lab3.Bai02TongHaiSo"
 mvn exec:java -Dexec.mainClass="vn.edu.eaut.lab3.Bai03PhuongTrinhBacNhat"
@@ -102,6 +108,7 @@ mvn exec:java -Dexec.mainClass="vn.edu.eaut.lab3.Bai05FibonacciSwing"
 mvn exec:java -Dexec.mainClass="vn.edu.eaut.lab3.Bai06LoginForm"
 mvn exec:java -Dexec.mainClass="vn.edu.eaut.lab3.Bai07MayTinhMini"
 mvn exec:java -Dexec.mainClass="vn.edu.eaut.lab3.Bai08QuanLySinhVien"
+mvn exec:java -Dexec.mainClass="vn.edu.eaut.lab3.MainLauncher"
 ```
 
 ---
