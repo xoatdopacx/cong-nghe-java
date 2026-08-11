@@ -112,3 +112,28 @@ Ma SV: 20230752 | Ho ten: Nguyen Van Hung
 Chuyen can: 8.0 | Giua ky: 7.0 | Cuoi ky: 9.0
 Tong ket: 8.30 → Xep loai: B
 ```
+
+---
+
+## 📙 Chương 3 – Java Swing Desktop
+
+### 8 bài tập Swing
+
+| Bài | Tên | Swing components |
+|-----|-----|-----------------|
+| 1 | Chào người dùng | JTextField, JButton, FlowLayout |
+| 2 | Tính tổng hai số | GridLayout, JLabel |
+| 3 | Giải PT bậc nhất ax+b=0 | BorderLayout, JPanel |
+| 4 | Kiểm tra tam giác | BorderLayout, GridLayout |
+| 5 | Dãy Fibonacci | JTextArea, JScrollPane |
+| 6 | Form đăng nhập | JPasswordField, JComboBox, JCheckBox |
+| 7 | Máy tính mini | Lịch sử tính với JTextArea |
+| 8 | Quản lý SV JTable | JTable, DefaultTableModel, CRUD |
+
+### Chạy
+```bash
+cd Chuong3-JavaSwing/lab03-java-swing
+mvn clean compile
+mvn exec:java -Dexec.mainClass="vn.edu.eaut.lab3.Bai01HelloSwing"
+# Thay Bai01 -> Bai08 để chạy từng bài
+```
