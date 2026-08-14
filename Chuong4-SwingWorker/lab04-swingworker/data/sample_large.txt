@@ -1,0 +1,23 @@
+Học phần Công nghệ Java - Bài thực hành Lab 4
+Chương 2: Phát triển ứng dụng Desktop trong Java SE
+Chủ đề: Xử lý sự kiện, EDT và SwingWorker trong Java Swing
+Trường Đại học Công nghệ Đông Á (EAUT)
+Khoa Công nghệ Thông tin - Bộ môn Công nghệ Phần mềm
+
+Dưới đây là một danh sách dòng văn bản mẫu để kiểm tra tính năng đếm dòng và tìm kiếm từ khóa.
+Java Swing là bộ thư viện xây dựng giao diện đồ họa người dùng (GUI) cho ngôn ngữ lập trình Java.
+EDT (Event Dispatch Thread) là luồng duy nhất chịu trách nhiệm xử lý các sự kiện giao diện trong Swing.
+Không nên thực hiện các tác vụ tốn thời gian trực tiếp trên EDT vì sẽ gây hiện tượng treo ứng dụng (UI freeze).
+SwingWorker là một lớp tiện ích trong Swing giúp thực thi các tác vụ tính toán lâu trong background thread.
+Phương thức doInBackground() chạy trên luồng phụ, hoàn toàn tách biệt khỏi EDT.
+Phương thức publish() và process() giúp gửi các kết quả trung gian về giao diện EDT an toàn.
+Phương thức setProgress() cho phép cập nhật tiến độ phần trăm của tác vụ nền.
+Phương thức done() được gọi tự động trên EDT khi doInBackground() kết thúc thành công hoặc bị hủy.
+Java SE cung cấp các công cụ mạnh mẽ để phát triển ứng dụng desktop hiện đại và tối ưu hiệu năng.
+Đại học Công nghệ Đông Á đào tạo sinh viên CNTT vững lý thuyết, giỏi thực hành.
+Từ khóa quan trọng: SwingWorker, Event Dispatch Thread, Multithreading, Concurrency, JProgressBar, JFileChooser, JTable.
+Dòng 16: Java Swing hỗ trợ nhiều Layout Manager như FlowLayout, BorderLayout, GridLayout, GridBagLayout.
+Dòng 17: Xử lý sự kiện ActionListener, ItemListener, MouseListener, KeyListener.
+Dòng 18: Tích hợp JDBC trong Lab 5 để kết nối cơ sở dữ liệu MySQL / SQL Server.
+Dòng 19: Kiến trúc 3 lớp Model - DAL - BUS - GUI mang lại mã nguồn sạch và dễ bảo trì.
+Dòng 20: Kết thúc dữ liệu thử nghiệm cho Bài 5 và Bài 7.
