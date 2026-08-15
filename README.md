@@ -15,9 +15,11 @@ cong-nghe-java/
 ├── Chuong3-JavaSwing/
 │   └── lab03-java-swing/            # Lab 3 – 8 bài Java Swing Desktop
 ├── Chuong4-SwingWorker/
-│   └── lab04-swingworker/          # Lab 4 – 10 bài SwingWorker, EDT & Multi-threading
-└── Chuong5-MiniShop/
-    └── lab05-minishop-swing-jdbc/  # Lab 5 – Project MiniShop Java Swing, JDBC, MySQL (3 Lớp)
+│   └── lab04-swingworker/           # Lab 4 – 10 bài SwingWorker, EDT & Multi-threading
+├── Chuong5-MiniShop/
+│   └── lab05-minishop-swing-jdbc/   # Lab 5 – Project MiniShop Java Swing, JDBC, MySQL (3 Lớp)
+└── Chuong6-ServletJSP/
+    └── lab06-student-web/           # Lab 6 – Servlet, JSP, JSTL, Filter, Listener, MVC
 ```
 
 ---
@@ -158,11 +160,53 @@ java -jar target/lab05-minishop-swing-jdbc-1.0-SNAPSHOT-jar-with-dependencies.ja
 
 ---
 
+## 🌐 Lab 6 – Servlet, JSP, JSTL, Filter, Listener & MVC (Chương 3 - Jakarta EE)
+
+| Mục | Chi tiết |
+|-----|----------|
+| Công nghệ | Jakarta EE, Servlet 6.0, JSP, JSTL 3.0, Filter, Listener, Session, MVC |
+| Package | `vn.edu.eaut.lab6` |
+| Web Container | Apache Tomcat 10.x (embedded via Cargo Maven Plugin) |
+| Build | `mvn clean package` |
+| Deploy | `mvn package cargo:run` → http://localhost:8080/lab06-student-web/ |
+
+**Tổng hợp 12 bài tập Servlet & MVC:**
+
+| Bài | Tên | Lớp / File | Mô tả |
+|-----|-----|-----------|-------|
+| 1 | Hello Servlet | `HelloServlet` → `/hello` | Servlet cơ bản hiển thị thông báo |
+| 2 | Form nhập sinh viên | `student-form.jsp` | Form HTML gửi POST đến Servlet |
+| 3 | Danh sách SV (JSTL) | `StudentServlet`, `student-list.jsp` | `c:forEach`, `c:if`, `c:choose` hiển thị danh sách |
+| 4 | Đăng nhập & Session | `LoginServlet`, `login.jsp`, `welcome.jsp` | Lưu session, redirect, hiển thị user |
+| 5 | Filter & Listener | `AuthFilter`, `AppContextListener`, `SessionLogListener` | Chặn truy cập + log vòng đời |
+| 6 | Tìm kiếm sinh viên | `StudentServlet` + `StudentStore.search()` | Tìm không phân biệt hoa/thường |
+| 7 | Xóa sinh viên | `StudentServlet` (action=delete) | Confirm dialog + xóa khỏi danh sách |
+| 8 | Cập nhật sinh viên | `StudentServlet` (action=edit) | Form sửa, mã SV readonly |
+| 9 | Phân quyền Admin/User | `AuthFilter` + `403.jsp` | Admin CRUD, User chỉ xem |
+| 10 | Dashboard | `DashboardServlet`, `dashboard.jsp` | Thống kê SV theo lớp, thời gian login |
+| 11 | Ghi log truy cập | `AccessLogFilter` | Log URI, method, user, thời gian |
+| 12 | Khởi tạo dữ liệu mẫu | `AppContextListener` | 7 SV mẫu khi ứng dụng khởi động |
+
+**Tài khoản kiểm thử:**
+```
+admin / 123456 → Vai trò Admin (Toàn quyền CRUD sinh viên)
+user  / 123456 → Vai trò User  (Chỉ xem danh sách, không thêm/sửa/xóa)
+```
+
+**Khởi chạy dự án:**
+```bash
+cd Chuong6-ServletJSP/lab06-student-web
+mvn clean package cargo:run
+# Truy cập: http://localhost:8080/lab06-student-web/
+```
+
+---
+
 ## ⚙️ Yêu cầu môi trường
 
 ```bash
 java -version   # OpenJDK 17+ / OpenJDK 21+
 javac -version  # javac 17+ / javac 21+
 mvn -version    # Apache Maven 3.x
-mysql --version # MySQL Server 8.0+
+mysql --version # MySQL Server 8.0+ (Lab 5)
 ```
