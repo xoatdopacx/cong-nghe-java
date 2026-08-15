@@ -80,56 +80,49 @@ Dự án tuân thủ nghiêm ngặt cấu trúc package `vn.edu.eaut.lab5` theo 
 
 ---
 
-## 3. KẾT QUẢ THỰC HIỆN TOÀN BỘ 10 CHỨC NĂNG (PHẦN A + PHẦN B)
+## 3. KẾT QUẢ THỰC HIỆN TOÀN BỘ 10 CHỨC NĂNG PROJECT MINISHOP
 
 ### Bài 1. Kết nối Cơ sở dữ liệu bằng JDBC (`DBHelper.java`)
 - Tạo lớp `DBHelper` kết nối MySQL qua Driver `com.mysql.cj.jdbc.Driver`, quản lý URL, USER, PASSWORD và cung cấp kết nối `getConnection()` tái sử dụng toàn bộ dự án.
-![LoginFrame](screenshots/01_LoginFrame.png)
 
 ### Bài 2. Quản lý sản phẩm (`SanPhamPanel.java`)
 - Thực hiện đầy đủ các chức năng CRUD sản phẩm, hiển thị dữ liệu mượt mà lên `JTable`, tìm kiếm theo tên và lọc theo danh mục.
-![SanPhamPanel](screenshots/03_SanPhamPanel.png)
 
 ### Bài 3. Quản lý khách hàng & Validate Số điện thoại (`KhachHangPanel.java`)
 - Thực hiện CRUD khách hàng. Áp dụng `PhoneDocumentFilter` cho `JTextField` SĐT đảm bảo chỉ nhập chữ số và tối đa 10 ký tự, kết hợp validate bằng Regex `\d{1,10}` ở lớp `KhachHangBUS`.
-![KhachHangPanel](screenshots/04_KhachHangPanel.png)
 
 ### Bài 4. Lập hóa đơn & Chi tiết hóa đơn (`HoaDonPanel.java`)
 - Thiết kế giao diện lập hóa đơn chuyên nghiệp: chọn khách hàng, chọn sản phẩm, nhập số lượng, tính tổng tiền tự động. Sử dụng JDBC Transaction (`conn.setAutoCommit(false)`) để lưu đồng thời hóa đơn, chi tiết hóa đơn và tự động trừ kho an toàn.
-![HoaDonPanel](screenshots/05_HoaDonPanel.png)
 
 ### Bài 5. Tìm kiếm & Thống kê bằng SwingWorker (`ThongKePanel.java`)
 - Thống kê tổng doanh thu theo khoảng ngày, hóa đơn có giá trị lớn nhất và sản phẩm bán chạy nhất. Toàn bộ thao tác truy vấn được thực thi bất đồng bộ bằng `SwingWorker`, có `JProgressBar` hiển thị trạng thái xử lý.
-![ThongKePanel](screenshots/06_ThongKePanel.png)
 
-### Bài 6 (Tự làm). Quản lý danh mục sản phẩm (`DanhMucPanel.java`)
+### Bài 6. Quản lý danh mục sản phẩm (`DanhMucPanel.java`)
 - Tạo bảng `danh_muc` và giao diện quản lý danh mục sản phẩm. Khi thêm/sửa sản phẩm, người dùng chọn danh mục qua `JComboBox`. Kiểm tra ràng buộc không cho xóa danh mục nếu đang có sản phẩm thuộc danh mục đó.
-![DanhMucPanel](screenshots/07_DanhMucPanel.png)
 
-### Bài 7 (Tự làm). Quản lý tồn kho
+### Bài 7. Quản lý tồn kho
 - Khi lập hóa đơn, số lượng bán không được vượt quá số lượng tồn kho.
 - Tự động trừ số lượng tồn kho khi lưu hóa đơn thành công.
 - Sản phẩm có số lượng tồn < 5 được làm nổi bật dòng bằng màu vàng/đỏ trên `JTable` và hiển thị nhãn CẢNH BÁO.
 
-### Bài 8 (Tự làm). Xuất hóa đơn ra file TXT hoặc CSV (`ExporterUtil.java`)
+### Bài 8. Xuất hóa đơn ra file TXT hoặc CSV (`ExporterUtil.java`)
 - Cho phép xuất hóa đơn vừa tạo thành file văn bản định dạng TXT (`HoaDon_MaHD.txt`) hoặc file CSV (`HoaDon_MaHD.csv`) lưu tại thư mục `exports/`.
 
-### Bài 9 (Tự làm). Tìm kiếm nâng cao và Phân trang dữ liệu
+### Bài 9. Tìm kiếm nâng cao và Phân trang dữ liệu
 - Giao diện Quản lý sản phẩm hỗ trợ tìm kiếm kết hợp (Từ khóa tên + Lọc danh mục) và phân trang 10 dòng/trang với các nút điều hướng (Đầu, Trước, Sau, Cuối). Dữ liệu được nạp bất đồng bộ bằng `SwingWorker`.
 
-### Bài 10 (Tự làm). Đăng nhập và Phân quyền người dùng (`LoginFrame.java` & `MainFrame.java`)
+### Bài 10. Đăng nhập và Phân quyền người dùng (`LoginFrame.java` & `MainFrame.java`)
 - Tạo bảng `tai_khoan` lưu trữ thông tin đăng nhập và vai trò. Phân quyền truy cập tab trên `MainFrame`:
   - `ADMIN`: Toàn quyền truy cập tất cả 5 tab.
   - `NHANVIEN`: Truy cập tab Sản phẩm, Khách hàng, Lập hóa đơn.
   - `KETOAN`: Truy cập tab Lập hóa đơn và Thống kê doanh thu.
-![MainFrame Admin](screenshots/02_MainFrame_Admin.png)
 
 ---
 
 ## 4. KẾT LUẬN VÀ TỰ ĐÁNH GIÁ
 
 1. **Kết quả đạt được**:
-   - Hoàn thành 100% mục tiêu bài thực hành Lab 5 (5 bài gợi ý + 5 bài tự làm).
+   - Hoàn thành 100% mục tiêu bài thực hành Lab 5.
    - Làm chủ kỹ năng kết nối CSDL MySQL bằng JDBC, sử dụng `PreparedStatement` và xử lý Transaction an toàn dữ liệu.
    - Áp dụng thành thạo mô hình 3 lớp DAL - BUS - GUI mang lại kiến trúc ứng dụng sạch, dễ mở rộng.
    - Sử dụng `SwingWorker` hiệu quả cho các thao tác thống kê và phân trang bất đồng bộ, giữ cho giao diện người dùng mượt mà.
