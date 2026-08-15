@@ -84,38 +84,48 @@ Dự án tuân thủ nghiêm ngặt cấu trúc package `vn.edu.eaut.lab5` theo 
 
 ### Bài 1. Kết nối Cơ sở dữ liệu bằng JDBC (`DBHelper.java`)
 - Tạo lớp `DBHelper` kết nối MySQL qua Driver `com.mysql.cj.jdbc.Driver`, quản lý URL, USER, PASSWORD và cung cấp kết nối `getConnection()` tái sử dụng toàn bộ dự án.
+![LoginFrame](screenshots/01_LoginFrame.png)
 
 ### Bài 2. Quản lý sản phẩm (`SanPhamPanel.java`)
 - Thực hiện đầy đủ các chức năng CRUD sản phẩm, hiển thị dữ liệu mượt mà lên `JTable`, tìm kiếm theo tên và lọc theo danh mục.
+![SanPhamPanel](screenshots/03_SanPhamPanel.png)
 
 ### Bài 3. Quản lý khách hàng & Validate Số điện thoại (`KhachHangPanel.java`)
 - Thực hiện CRUD khách hàng. Áp dụng `PhoneDocumentFilter` cho `JTextField` SĐT đảm bảo chỉ nhập chữ số và tối đa 10 ký tự, kết hợp validate bằng Regex `\d{1,10}` ở lớp `KhachHangBUS`.
+![KhachHangPanel](screenshots/04_KhachHangPanel.png)
 
 ### Bài 4. Lập hóa đơn & Chi tiết hóa đơn (`HoaDonPanel.java`)
 - Thiết kế giao diện lập hóa đơn chuyên nghiệp: chọn khách hàng, chọn sản phẩm, nhập số lượng, tính tổng tiền tự động. Sử dụng JDBC Transaction (`conn.setAutoCommit(false)`) để lưu đồng thời hóa đơn, chi tiết hóa đơn và tự động trừ kho an toàn.
+![HoaDonPanel](screenshots/05_HoaDonPanel.png)
 
 ### Bài 5. Tìm kiếm & Thống kê bằng SwingWorker (`ThongKePanel.java`)
 - Thống kê tổng doanh thu theo khoảng ngày, hóa đơn có giá trị lớn nhất và sản phẩm bán chạy nhất. Toàn bộ thao tác truy vấn được thực thi bất đồng bộ bằng `SwingWorker`, có `JProgressBar` hiển thị trạng thái xử lý.
+![ThongKePanel](screenshots/06_ThongKePanel.png)
 
 ### Bài 6. Quản lý danh mục sản phẩm (`DanhMucPanel.java`)
 - Tạo bảng `danh_muc` và giao diện quản lý danh mục sản phẩm. Khi thêm/sửa sản phẩm, người dùng chọn danh mục qua `JComboBox`. Kiểm tra ràng buộc không cho xóa danh mục nếu đang có sản phẩm thuộc danh mục đó.
+![DanhMucPanel](screenshots/07_DanhMucPanel.png)
 
 ### Bài 7. Quản lý tồn kho
 - Khi lập hóa đơn, số lượng bán không được vượt quá số lượng tồn kho.
 - Tự động trừ số lượng tồn kho khi lưu hóa đơn thành công.
 - Sản phẩm có số lượng tồn < 5 được làm nổi bật dòng bằng màu vàng/đỏ trên `JTable` và hiển thị nhãn CẢNH BÁO.
+![SanPhamPanel Tồn kho](screenshots/03_SanPhamPanel.png)
 
 ### Bài 8. Xuất hóa đơn ra file TXT hoặc CSV (`ExporterUtil.java`)
 - Cho phép xuất hóa đơn vừa tạo thành file văn bản định dạng TXT (`HoaDon_MaHD.txt`) hoặc file CSV (`HoaDon_MaHD.csv`) lưu tại thư mục `exports/`.
+![HoaDonPanel Xuất file](screenshots/05_HoaDonPanel.png)
 
 ### Bài 9. Tìm kiếm nâng cao và Phân trang dữ liệu
 - Giao diện Quản lý sản phẩm hỗ trợ tìm kiếm kết hợp (Từ khóa tên + Lọc danh mục) và phân trang 10 dòng/trang với các nút điều hướng (Đầu, Trước, Sau, Cuối). Dữ liệu được nạp bất đồng bộ bằng `SwingWorker`.
+![SanPhamPanel Phân trang](screenshots/03_SanPhamPanel.png)
 
 ### Bài 10. Đăng nhập và Phân quyền người dùng (`LoginFrame.java` & `MainFrame.java`)
 - Tạo bảng `tai_khoan` lưu trữ thông tin đăng nhập và vai trò. Phân quyền truy cập tab trên `MainFrame`:
   - `ADMIN`: Toàn quyền truy cập tất cả 5 tab.
   - `NHANVIEN`: Truy cập tab Sản phẩm, Khách hàng, Lập hóa đơn.
   - `KETOAN`: Truy cập tab Lập hóa đơn và Thống kê doanh thu.
+![MainFrame Admin](screenshots/02_MainFrame_Admin.png)
 
 ---
 
