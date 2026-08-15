@@ -3,6 +3,11 @@ target/
 **/target/
 *.class
 
+# Exclude Word docx reports & local generator scripts per user request
+*.docx
+gen_report_lab5.py
+ScreenshotGenerator.java
+
 # IDE
 .idea/
 .vscode/
