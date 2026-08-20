@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:ui="jakarta.faces.facelets"
+      xmlns:f="jakarta.faces.core">
+<h:head>
+    <title><ui:insert name="title">Lab 8 - JSF</ui:insert></title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; background: #f4f6f9; color: #333; }
+        .header {
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: white; padding: 15px 30px;
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        .header h1 { font-size: 20px; }
+        .header a { color: #cde; text-decoration: none; margin-left: 15px; font-size: 14px; }
+        .header a:hover { color: white; }
+        .nav { background: #2c3e50; padding: 10px 30px; }
+        .nav a {
+            color: #ecf0f1; text-decoration: none; margin-right: 20px;
+            font-size: 14px; padding: 5px 12px; border-radius: 4px;
+        }
+        .nav a:hover { background: #34495e; }
+        .content { max-width: 1100px; margin: 20px auto; padding: 0 20px; }
+        .footer {
+            text-align: center; padding: 15px; margin-top: 30px;
+            background: #2c3e50; color: #bdc3c7; font-size: 13px;
+        }
+        /* Form styles */
+        .form-group { margin-bottom: 12px; }
+        .form-group label { display: block; margin-bottom: 4px; font-weight: 600; font-size: 14px; }
+        .form-group input, .form-group select {
+            width: 100%; padding: 8px 12px; border: 1px solid #ccc;
+            border-radius: 4px; font-size: 14px;
+        }
+        .form-group input:focus, .form-group select:focus {
+            border-color: #2a5298; outline: none; box-shadow: 0 0 4px rgba(42,82,152,0.3);
+        }
+        .btn {
+            padding: 8px 20px; border: none; border-radius: 4px;
+            cursor: pointer; font-size: 14px; color: white; margin-right: 5px;
+        }
+        .btn-primary { background: #2a5298; }
+        .btn-primary:hover { background: #1e3c72; }
+        .btn-danger { background: #e74c3c; }
+        .btn-danger:hover { background: #c0392b; }
+        .btn-warning { background: #f39c12; }
+        .btn-warning:hover { background: #e67e22; }
+        .btn-secondary { background: #95a5a6; }
+        .btn-secondary:hover { background: #7f8c8d; }
+        /* Table styles */
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+        th { background: #2a5298; color: white; padding: 10px 12px; text-align: left; font-size: 14px; }
+        td { padding: 8px 12px; border-bottom: 1px solid #eee; font-size: 14px; }
+        tr:hover td { background: #f0f4ff; }
+        /* Card */
+        .card { background: white; border-radius: 8px; padding: 25px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-bottom: 20px; }
+        .card h2 { color: #2a5298; margin-bottom: 15px; font-size: 18px; }
+        /* Messages */
+        .msg-info { color: #27ae60; font-weight: 600; margin-bottom: 10px; }
+        .msg-error { color: #e74c3c; font-size: 13px; }
+        .global-msg { background: #d4edda; border: 1px solid #c3e6cb; padding: 10px 15px; border-radius: 4px; color: #155724; margin-bottom: 15px; }
+        .global-msg-error { background: #f8d7da; border: 1px solid #f5c6cb; padding: 10px 15px; border-radius: 4px; color: #721c24; margin-bottom: 15px; }
+        /* Search */
+        .search-bar { display: flex; gap: 10px; margin-bottom: 15px; }
+        .search-bar input { flex: 1; }
+    </style>
+</h:head>
+<h:body>
+    <div class="header">
+        <h1>Lab 8 - JSF Validation &amp; Message</h1>
+        <div>
+            <a href="#{request.contextPath}/index.xhtml">Trang chủ</a>
+            <h:link outcome="login" value="Đăng nhập" rendered="#{!loginBean.loggedIn}" />
+        </div>
+    </div>
+    <div class="nav">
+        <a href="#{request.contextPath}/sinhvien-form.xhtml">Form Sinh viên</a>
+        <a href="#{request.contextPath}/sinhvien-list.xhtml">DS Sinh viên</a>
+        <a href="#{request.contextPath}/sach-form.xhtml">Form Sách</a>
+        <a href="#{request.contextPath}/sach-list.xhtml">DS Sách</a>
+        <a href="#{request.contextPath}/product-form.xhtml">Form Sản phẩm</a>
+        <a href="#{request.contextPath}/product-list.xhtml">DS Sản phẩm</a>
+    </div>
+    <div class="content">
+        <ui:insert name="content">Nội dung trang</ui:insert>
+    </div>
+    <div class="footer">
+        © 2024 Lab 8 - Nguyễn Văn Hùng - 20230752 - Lớp DCCNTT 14.2 | Công nghệ Java - IT3242
+    </div>
+</h:body>
+</html>

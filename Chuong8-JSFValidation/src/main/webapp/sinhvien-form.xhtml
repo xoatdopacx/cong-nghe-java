@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core"
+      xmlns:ui="jakarta.faces.facelets">
+<ui:composition template="template.xhtml">
+    <ui:define name="title">Form sinh viên JSF</ui:define>
+    <ui:define name="content">
+        <div class="card">
+            <h2>#{sinhVienBean.editing ? 'Cập nhật sinh viên' : 'Thêm sinh viên mới'}</h2>
+
+            <!-- Global messages (thông báo thành công) -->
+            <h:messages globalOnly="true" styleClass="global-msg" />
+
+            <h:form>
+                <div class="form-group">
+                    <label for="ma">Mã sinh viên:</label>
+                    <h:inputText id="ma" value="#{sinhVienBean.sinhVien.maSinhVien}"
+                                 required="true" requiredMessage="Mã sinh viên bắt buộc nhập"
+                                 style="width:100%;padding:8px 12px;border:1px solid #ccc;border-radius:4px;" />
+                    <h:message for="ma" styleClass="msg-error" />
+                </div>
+
+                <div class="form-group">
+                    <label for="hoten">Họ tên:</label>
+                    <h:inputText id="hoten" value="#{sinhVienBean.sinhVien.hoTen}"
+                                 style="width:100%;padding:8px 12px;border:1px solid #ccc;border-radius:4px;" />
+                    <h:message for="hoten" styleClass="msg-error" />
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <h:inputText id="email" value="#{sinhVienBean.sinhVien.email}"
+                                 style="width:100%;padding:8px 12px;border:1px solid #ccc;border-radius:4px;" />
+                    <h:message for="email" styleClass="msg-error" />
+                </div>
+
+                <!-- Bài 12: selectOneMenu cho trường lớp -->
+                <div class="form-group">
+                    <label for="lop">Lớp:</label>
+                    <h:selectOneMenu id="lop" value="#{sinhVienBean.sinhVien.lop}"
+                                     required="true" requiredMessage="Vui lòng chọn lớp"
+                                     style="width:100%;padding:8px 12px;border:1px solid #ccc;border-radius:4px;">
+                        <f:selectItem itemLabel="-- Chọn lớp --" itemValue="" />
+                        <f:selectItems value="#{sinhVienBean.dsLop}" />
+                    </h:selectOneMenu>
+                    <h:message for="lop" styleClass="msg-error" />
+                </div>
+
+                <div style="margin-top:15px;">
+                    <h:commandButton value="#{sinhVienBean.editing ? 'Cập nhật' : 'Lưu sinh viên'}"
+                                     action="#{sinhVienBean.save}" styleClass="btn btn-primary" />
+                    <h:commandButton value="Hủy" action="#{sinhVienBean.cancelEdit}"
+                                     styleClass="btn btn-secondary" rendered="#{sinhVienBean.editing}"
+                                     immediate="true" />
+                </div>
+            </h:form>
+
+            <p style="margin-top:15px;">
+                <h:link outcome="sinhvien-list" value="Xem danh sách sinh viên →" />
+            </p>
+        </div>
+    </ui:define>
+</ui:composition>
+</html>

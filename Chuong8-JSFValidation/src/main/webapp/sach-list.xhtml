@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core"
+      xmlns:ui="jakarta.faces.facelets">
+<ui:composition template="template.xhtml">
+    <ui:define name="title">Danh sách sách JSF</ui:define>
+    <ui:define name="content">
+        <div class="card">
+            <h2>Danh sách sách (Bài 6)</h2>
+
+            <h:messages globalOnly="true" styleClass="global-msg" />
+
+            <h:form>
+                <h:dataTable value="#{sachBean.dsSach}" var="s"
+                             style="width:100%;border-collapse:collapse;background:white;border-radius:8px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.1);">
+                    <h:column>
+                        <f:facet name="header">ID</f:facet>
+                        #{s.id}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Tên sách</f:facet>
+                        #{s.tenSach}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Tác giả</f:facet>
+                        #{s.tacGia}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Năm XB</f:facet>
+                        #{s.namXuatBan}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Thể loại</f:facet>
+                        #{s.theLoai}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Thao tác</f:facet>
+                        <h:commandButton value="Xóa" action="#{sachBean.delete(s.id)}"
+                                         styleClass="btn btn-danger" style="padding:4px 10px;font-size:12px;"
+                                         onclick="return confirm('Bạn có chắc muốn xóa?');" />
+                    </h:column>
+                </h:dataTable>
+            </h:form>
+
+            <p style="margin-top:15px;">
+                <h:link outcome="sach-form" value="← Thêm sách mới" />
+            </p>
+        </div>
+    </ui:define>
+</ui:composition>
+</html>

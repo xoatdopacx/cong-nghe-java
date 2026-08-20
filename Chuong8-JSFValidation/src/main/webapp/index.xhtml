@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:ui="jakarta.faces.facelets">
+<ui:composition template="template.xhtml">
+    <ui:define name="title">Lab 8 - Trang chủ JSF</ui:define>
+    <ui:define name="content">
+        <div class="card">
+            <h2>Lab 8 - Chuyển form sang JSF, validation và message</h2>
+            <p style="margin-bottom:15px; color:#555;">
+                Sinh viên: <strong>Nguyễn Văn Hùng</strong> - MSSV: <strong>20230752</strong> - Lớp: <strong>DCCNTT 14.2</strong>
+            </p>
+            <p style="margin-bottom:20px; color:#666; line-height:1.6;">
+                Bài lab này tập trung vào Jakarta Faces (JSF): chuyển form từ Servlet/JSP sang JSF,
+                sử dụng Bean Validation, FacesMessage, h:dataTable, CDI Bean, và layout dùng chung
+                bằng Facelets template.
+            </p>
+            <h2>Danh sách bài tập</h2>
+            <table>
+                <tr><th>Bài</th><th>Mô tả</th><th>Truy cập</th></tr>
+                <tr>
+                    <td>Bài 1</td><td>Trang JSF đầu tiên</td>
+                    <td><em>Trang này</em></td>
+                </tr>
+                <tr>
+                    <td>Bài 2-3</td><td>Model, Repository, Managed Bean SinhVien</td>
+                    <td><h:link outcome="sinhvien-form" value="Form SV" styleClass="btn btn-primary" style="text-decoration:none;font-size:12px;padding:4px 10px;" /></td>
+                </tr>
+                <tr>
+                    <td>Bài 4</td><td>Form JSF + Validation + Message</td>
+                    <td><h:link outcome="sinhvien-form" value="Form SV" styleClass="btn btn-primary" style="text-decoration:none;font-size:12px;padding:4px 10px;" /></td>
+                </tr>
+                <tr>
+                    <td>Bài 5</td><td>h:dataTable + Xóa dữ liệu</td>
+                    <td><h:link outcome="sinhvien-list" value="DS SV" styleClass="btn btn-primary" style="text-decoration:none;font-size:12px;padding:4px 10px;" /></td>
+                </tr>
+                <tr>
+                    <td>Bài 6</td><td>Form Sách JSF</td>
+                    <td><h:link outcome="sach-form" value="Form Sách" styleClass="btn btn-primary" style="text-decoration:none;font-size:12px;padding:4px 10px;" /></td>
+                </tr>
+                <tr>
+                    <td>Bài 7</td><td>Form Sản phẩm JSF</td>
+                    <td><h:link outcome="product-form" value="Form SP" styleClass="btn btn-primary" style="text-decoration:none;font-size:12px;padding:4px 10px;" /></td>
+                </tr>
+                <tr>
+                    <td>Bài 8</td><td>Form đăng nhập JSF</td>
+                    <td><h:link outcome="login" value="Đăng nhập" styleClass="btn btn-warning" style="text-decoration:none;font-size:12px;padding:4px 10px;" /></td>
+                </tr>
+                <tr>
+                    <td>Bài 9</td><td>Sửa sinh viên bằng JSF</td>
+                    <td><h:link outcome="sinhvien-list" value="DS SV" styleClass="btn btn-primary" style="text-decoration:none;font-size:12px;padding:4px 10px;" /></td>
+                </tr>
+                <tr>
+                    <td>Bài 10</td><td>Tìm kiếm sinh viên</td>
+                    <td><h:link outcome="sinhvien-list" value="DS SV" styleClass="btn btn-primary" style="text-decoration:none;font-size:12px;padding:4px 10px;" /></td>
+                </tr>
+                <tr>
+                    <td>Bài 11</td><td>Layout dùng chung (template)</td>
+                    <td><em>Tất cả trang</em></td>
+                </tr>
+                <tr>
+                    <td>Bài 12</td><td>selectOneMenu cho trường lớp</td>
+                    <td><h:link outcome="sinhvien-form" value="Form SV" styleClass="btn btn-primary" style="text-decoration:none;font-size:12px;padding:4px 10px;" /></td>
+                </tr>
+                <tr>
+                    <td>Bài 13</td><td>Báo cáo so sánh Servlet/JSP và JSF</td>
+                    <td><em>Trong báo cáo</em></td>
+                </tr>
+            </table>
+        </div>
+    </ui:define>
+</ui:composition>
+</html>

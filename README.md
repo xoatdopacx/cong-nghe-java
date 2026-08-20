@@ -20,6 +20,8 @@ cong-nghe-java/
 │   └── lab05-minishop-swing-jdbc/   # Lab 5 – Project MiniShop Java Swing, JDBC, MySQL (3 Lớp)
 └── Chuong6-ServletJSP/
     └── lab06-student-web/           # Lab 6 – Servlet, JSP, JSTL, Filter, Listener, MVC
+└── Chuong8-JSFValidation/
+    └── lab08-jsf-validation/        # Lab 8 – JSF, CDI, Bean Validation, FacesMessage
 ```
 
 ---
@@ -198,6 +200,43 @@ user  / 123456 → Vai trò User  (Chỉ xem danh sách, không thêm/sửa/xóa
 cd Chuong6-ServletJSP/lab06-student-web
 mvn clean package cargo:run
 # Truy cập: http://localhost:8080/lab06-student-web/
+```
+
+---
+
+## 🧩 Lab 8 – JSF Validation & Message (Chương 3 - Jakarta Faces)
+
+| Mục | Chi tiết |
+|-----|----------|
+| Công nghệ | Jakarta Faces (JSF) 4.0, CDI (Weld), Bean Validation (Hibernate Validator), Facelets |
+| Package | `vn.edu.eaut.lab8` |
+| Web Container | Apache Tomcat 10.x (embedded via Cargo Maven Plugin) |
+| Build | `mvn clean package` |
+| Deploy | `mvn package cargo:run` → http://localhost:8080/lab08-jsf-validation/ |
+
+**Tổng hợp 13 bài tập JSF:**
+
+| Bài | Tên | Lớp / File | Mô tả |
+|-----|-----|-----------|-------|
+| 1 | Trang JSF đầu tiên | `index.xhtml` | FacesServlet + danh sách bài tập |
+| 2 | Model + Repository | `SinhVien.java`, `SinhVienRepository.java` | Bean Validation: @NotBlank, @Email, @Size |
+| 3 | Managed Bean | `SinhVienBean.java` | CDI @Named @SessionScoped, CRUD + FacesMessage |
+| 4 | Form JSF + Validation | `sinhvien-form.xhtml` | h:form, h:inputText, h:message, h:messages |
+| 5 | h:dataTable + Xóa | `sinhvien-list.xhtml` | h:dataTable, f:facet, commandButton delete |
+| 6 | Form Sách JSF | `SachBean`, `sach-form/list.xhtml` | Validate tên, tác giả @NotBlank, năm @Min/@Max |
+| 7 | Form Sản phẩm JSF | `ProductBean`, `product-form/list.xhtml` | Validate giá @Positive, SL @PositiveOrZero |
+| 8 | Form đăng nhập JSF | `LoginBean`, `login.xhtml` | h:inputSecret, FacesMessage error/success |
+| 9 | Sửa sinh viên | `SinhVienBean.edit()` | Load dữ liệu lên form, cập nhật |
+| 10 | Tìm kiếm sinh viên | `SinhVienBean.search()` | Filter theo họ tên, mã SV, lớp |
+| 11 | Layout dùng chung | `template.xhtml` | ui:composition, ui:insert, ui:define |
+| 12 | selectOneMenu | `sinhvien-form.xhtml` | h:selectOneMenu cho trường lớp |
+| 13 | So sánh Servlet/JSP vs JSF | Trong báo cáo | Bảng so sánh 12 tiêu chí |
+
+**Khởi chạy dự án:**
+```bash
+cd Chuong8-JSFValidation
+mvn clean package cargo:run
+# Truy cập: http://localhost:8080/lab08-jsf-validation/index.xhtml
 ```
 
 ---

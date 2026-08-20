@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core"
+      xmlns:ui="jakarta.faces.facelets">
+<ui:composition template="template.xhtml">
+    <ui:define name="title">Danh sách sản phẩm JSF</ui:define>
+    <ui:define name="content">
+        <div class="card">
+            <h2>Danh sách sản phẩm (Bài 7)</h2>
+
+            <h:messages globalOnly="true" styleClass="global-msg" />
+
+            <h:form>
+                <h:dataTable value="#{productBean.dsProduct}" var="p"
+                             style="width:100%;border-collapse:collapse;background:white;border-radius:8px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.1);">
+                    <h:column>
+                        <f:facet name="header">ID</f:facet>
+                        #{p.id}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Tên SP</f:facet>
+                        #{p.tenSanPham}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Giá (VNĐ)</f:facet>
+                        <h:outputText value="#{p.gia}">
+                            <f:convertNumber pattern="#,##0" />
+                        </h:outputText>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Số lượng</f:facet>
+                        #{p.soLuong}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Mô tả</f:facet>
+                        #{p.moTa}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Thao tác</f:facet>
+                        <h:commandButton value="Xóa" action="#{productBean.delete(p.id)}"
+                                         styleClass="btn btn-danger" style="padding:4px 10px;font-size:12px;"
+                                         onclick="return confirm('Bạn có chắc muốn xóa?');" />
+                    </h:column>
+                </h:dataTable>
+            </h:form>
+
+            <p style="margin-top:15px;">
+                <h:link outcome="product-form" value="← Thêm sản phẩm mới" />
+            </p>
+        </div>
+    </ui:define>
+</ui:composition>
+</html>

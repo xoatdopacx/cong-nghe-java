@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core"
+      xmlns:ui="jakarta.faces.facelets">
+<ui:composition template="template.xhtml">
+    <ui:define name="title">Danh sách sinh viên JSF</ui:define>
+    <ui:define name="content">
+        <div class="card">
+            <h2>Danh sách sinh viên</h2>
+
+            <h:messages globalOnly="true" styleClass="global-msg" />
+
+            <!-- Bài 10: Tìm kiếm sinh viên -->
+            <h:form id="searchForm">
+                <div class="search-bar">
+                    <h:inputText id="keyword" value="#{sinhVienBean.keyword}"
+                                 style="flex:1;padding:8px 12px;border:1px solid #ccc;border-radius:4px;"
+                                 placeholder="Tìm theo họ tên, mã SV hoặc lớp..." />
+                    <h:commandButton value="Tìm kiếm" styleClass="btn btn-primary" />
+                    <h:commandButton value="Xóa lọc" styleClass="btn btn-secondary"
+                                     action="#{sinhVienBean.setKeyword(null)}" />
+                </div>
+            </h:form>
+
+            <!-- Bài 5: h:dataTable + Bài 9: Sửa -->
+            <h:form id="listForm">
+                <h:dataTable value="#{sinhVienBean.dsSinhVien}" var="sv"
+                             styleClass="data-table" headerClass="table-header"
+                             style="width:100%;border-collapse:collapse;background:white;border-radius:8px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.1);">
+                    <h:column>
+                        <f:facet name="header">ID</f:facet>
+                        #{sv.id}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Mã SV</f:facet>
+                        #{sv.maSinhVien}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Họ tên</f:facet>
+                        #{sv.hoTen}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Email</f:facet>
+                        #{sv.email}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Lớp</f:facet>
+                        #{sv.lop}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Thao tác</f:facet>
+                        <h:commandButton value="Sửa" action="#{sinhVienBean.edit(sv.id)}"
+                                         styleClass="btn btn-warning" style="padding:4px 10px;font-size:12px;" />
+                        <h:commandButton value="Xóa" action="#{sinhVienBean.delete(sv.id)}"
+                                         styleClass="btn btn-danger" style="padding:4px 10px;font-size:12px;"
+                                         onclick="return confirm('Bạn có chắc muốn xóa?');" />
+                    </h:column>
+                </h:dataTable>
+            </h:form>
+
+            <p style="margin-top:15px;">
+                <h:link outcome="sinhvien-form" value="← Thêm sinh viên mới" />
+            </p>
+        </div>
+    </ui:define>
+</ui:composition>
+</html>

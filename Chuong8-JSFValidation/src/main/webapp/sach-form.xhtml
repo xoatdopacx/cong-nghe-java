@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core"
+      xmlns:ui="jakarta.faces.facelets">
+<ui:composition template="template.xhtml">
+    <ui:define name="title">Form sách JSF</ui:define>
+    <ui:define name="content">
+        <div class="card">
+            <h2>Thêm sách mới (Bài 6)</h2>
+
+            <h:messages globalOnly="true" styleClass="global-msg" />
+
+            <h:form>
+                <div class="form-group">
+                    <label for="ten">Tên sách:</label>
+                    <h:inputText id="ten" value="#{sachBean.sach.tenSach}"
+                                 required="true" requiredMessage="Tên sách bắt buộc nhập"
+                                 style="width:100%;padding:8px 12px;border:1px solid #ccc;border-radius:4px;" />
+                    <h:message for="ten" styleClass="msg-error" />
+                </div>
+
+                <div class="form-group">
+                    <label for="tacgia">Tác giả:</label>
+                    <h:inputText id="tacgia" value="#{sachBean.sach.tacGia}"
+                                 required="true" requiredMessage="Tác giả bắt buộc nhập"
+                                 style="width:100%;padding:8px 12px;border:1px solid #ccc;border-radius:4px;" />
+                    <h:message for="tacgia" styleClass="msg-error" />
+                </div>
+
+                <div class="form-group">
+                    <label for="nam">Năm xuất bản:</label>
+                    <h:inputText id="nam" value="#{sachBean.sach.namXuatBan}"
+                                 converterMessage="Năm phải là số nguyên"
+                                 style="width:100%;padding:8px 12px;border:1px solid #ccc;border-radius:4px;" />
+                    <h:message for="nam" styleClass="msg-error" />
+                </div>
+
+                <div class="form-group">
+                    <label for="theloai">Thể loại:</label>
+                    <h:inputText id="theloai" value="#{sachBean.sach.theLoai}"
+                                 style="width:100%;padding:8px 12px;border:1px solid #ccc;border-radius:4px;" />
+                    <h:message for="theloai" styleClass="msg-error" />
+                </div>
+
+                <div style="margin-top:15px;">
+                    <h:commandButton value="Lưu sách" action="#{sachBean.save}" styleClass="btn btn-primary" />
+                </div>
+            </h:form>
+
+            <p style="margin-top:15px;">
+                <h:link outcome="sach-list" value="Xem danh sách sách →" />
+            </p>
+        </div>
+    </ui:define>
+</ui:composition>
+</html>
