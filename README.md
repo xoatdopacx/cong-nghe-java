@@ -22,6 +22,8 @@ cong-nghe-java/
     └── lab06-student-web/           # Lab 6 – Servlet, JSP, JSTL, Filter, Listener, MVC
 └── Chuong8-JSFValidation/
     └── lab08-jsf-validation/        # Lab 8 – JSF, CDI, Bean Validation, FacesMessage
+└── Chuong9-JPA/
+    └── lab09-jpa-repository/        # Lab 9 – JPA 3.1, Hibernate ORM 6.4, Entity, Repository, Transaction
 ```
 
 ---
@@ -238,6 +240,30 @@ cd Chuong8-JSFValidation
 mvn clean package cargo:run
 # Truy cập: http://localhost:8080/lab08-jsf-validation/index.xhtml
 ```
+
+---
+
+## 📕 Lab 9 – Tích hợp JPA: Entity, Repository, Transaction
+
+| Mục | Chi tiết |
+|-----|----------|
+| Công nghệ | Jakarta EE 10, Jakarta Persistence 3.1, Hibernate ORM 6.4.4, MySQL 9.5, Tomcat 10.1.30 |
+| Database | `lab09_jpa` trên MySQL Server 9.5 |
+| Package | `vn.edu.eaut.lab9` |
+| Kiến trúc | MVC + Generic Repository Pattern + Service Layer + Singleton EntityManagerFactory |
+| Build & Run | `cd lab09-jpa-repository && mvn clean package cargo:run` |
+| URL | `http://localhost:8080/lab09-jpa-repository/` |
+
+**Các module & chức năng chính:**
+
+| Phân hệ | Entity JPA | Mô tả chức năng |
+|---|---|---|
+| **Dashboard** | Thống kê đa thực thể | Tổng hợp số liệu realtime từ EntityManager, tự động seed mẫu |
+| **Sinh Viên** | `SinhVien.java` | CRUD, phân trang 5 bản ghi/trang, tìm kiếm, `@ManyToOne` với LopHoc |
+| **Lớp Học** | `LopHoc.java` | CRUD, đếm số sinh viên theo quan hệ `@OneToMany` (JPQL Fetch Join) |
+| **Môn Học** | `MonHoc.java` | CRUD danh mục học phần và số tín chỉ |
+| **Điểm Học Phần** | `Diem.java` | Nhập điểm theo thang 10, liên kết SinhVien và MonHoc |
+| **Sản Phẩm** | `SanPham.java` | CRUD hàng hóa, giá niêm yết VNĐ, quản lý tồn kho |
 
 ---
 
