@@ -26,7 +26,6 @@ Lab 9 tích hợp kiến trúc **Jakarta Persistence (JPA 3.1)** và **Hibernate
 Chuong9-JPA/
 ├── pom.xml
 ├── BaoCao_Lab9.md
-├── screenshots/
 └── src/main/
     ├── java/vn/edu/eaut/lab9/
     │   ├── entity/        (SinhVien, LopHoc, MonHoc, Diem, SanPham, NguoiDung)
@@ -67,14 +66,3 @@ mvn clean package cargo:run
 # http://localhost:8080/lab09-jpa-repository/
 ```
 
-## 6. Hình ảnh minh họa
-
-| Màn hình | Hình ảnh minh họa |
-|---|---|
-| Dashboard | ![Dashboard](screenshots/01_dashboard.png) |
-| Danh sách Sinh Viên | ![SinhVien List](screenshots/02_sinhvien_list.png) |
-| Form Sinh Viên | ![SinhVien Form](screenshots/03_sinhvien_form.png) |
-| Danh sách Lớp Học | ![LopHoc List](screenshots/05_lophoc_list.png) |
-| Danh sách Môn Học | ![MonHoc List](screenshots/07_monhoc_list.png) |
-| Danh sách Bảng Điểm | ![Diem List](screenshots/09_diem_list.png) |
-| Danh sách Sản Phẩm | ![SanPham List](screenshots/11_sanpham_list.png) |
