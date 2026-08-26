@@ -18,12 +18,14 @@ cong-nghe-java/
 │   └── lab04-swingworker/           # Lab 4 – 10 bài SwingWorker, EDT & Multi-threading
 ├── Chuong5-MiniShop/
 │   └── lab05-minishop-swing-jdbc/   # Lab 5 – Project MiniShop Java Swing, JDBC, MySQL (3 Lớp)
-└── Chuong6-ServletJSP/
-    └── lab06-student-web/           # Lab 6 – Servlet, JSP, JSTL, Filter, Listener, MVC
-└── Chuong8-JSFValidation/
-    └── lab08-jsf-validation/        # Lab 8 – JSF, CDI, Bean Validation, FacesMessage
-└── Chuong9-JPA/
-    └── lab09-jpa-repository/        # Lab 9 – JPA 3.1, Hibernate ORM 6.4, Entity, Repository, Transaction
+├── Chuong6-ServletJSP/
+│   └── lab06-student-web/           # Lab 6 – Servlet, JSP, JSTL, Filter, Listener, MVC
+├── Chuong8-JSFValidation/
+│   └── lab08-jsf-validation/        # Lab 8 – JSF, CDI, Bean Validation, FacesMessage
+├── Chuong9-JPA/
+│   └── lab09-jpa-repository/        # Lab 9 – JPA 3.1, Hibernate ORM 6.4, Entity, Repository, Transaction
+└── Chuong10-SecuredApp/
+    └── lab10-secured-app/           # Lab 10 – Authentication, Role-Based Access Control, Filter Security
 ```
 
 ---
@@ -264,6 +266,34 @@ mvn clean package cargo:run
 | **Môn Học** | `MonHoc.java` | CRUD danh mục học phần và số tín chỉ |
 | **Điểm Học Phần** | `Diem.java` | Nhập điểm theo thang 10, liên kết SinhVien và MonHoc |
 | **Sản Phẩm** | `SanPham.java` | CRUD hàng hóa, giá niêm yết VNĐ, quản lý tồn kho |
+
+---
+
+## 🔐 Lab 10 – Thêm Login, Role, Bảo Vệ URL và Hoàn Thiện Ứng Dụng
+
+| Mục | Chi tiết |
+|-----|----------|
+| Công nghệ | Jakarta EE 10, JPA 3.1, Hibernate ORM 6.4, Servlet 6.0, JSP 3.1, JSTL 3.0, MySQL 9.5 |
+| Database | `lab10_secured` trên MySQL Server |
+| Package | `vn.edu.eaut.lab10` |
+| Bảo mật | AuthenticationFilter, AuthorizationFilter, HttpSession, Role-Based Access Control |
+| Build & Run | `cd Chuong10-SecuredApp && mvn clean package cargo:run` |
+| URL | `http://localhost:8080/lab10-secured-app/login.jsp` |
+
+**Tài khoản & Phân quyền kiểm thử:**
+
+| Email | Mật khẩu | Vai trò (Role) | Menu hiển thị & Quyền truy cập |
+|---|---|---|---|
+| `admin@eaut.edu.vn` | `admin123` | **ADMIN** | Toàn quyền quản trị hệ thống: Quản lý Users, Sinh viên, Lớp học, Môn học, Điểm, Sản phẩm |
+| `staff@eaut.edu.vn` | `staff123` | **STAFF** | Nhân viên nghiệp vụ: Quản lý Điểm & Sản phẩm. Truy cập `/admin/*` $\rightarrow$ Chặn báo lỗi 403 |
+| `user@eaut.edu.vn` | `user123` | **USER** | Người dùng tiêu chuẩn: Xem Dashboard, Hồ sơ cá nhân & Đổi mật khẩu. Truy cập `/admin/*`, `/staff/*` $\rightarrow$ 403 |
+
+**Các tính năng nổi bật:**
+- **Authentication & Session:** Đăng nhập/Đăng xuất kiểm tra CSDL, lưu `currentUser` vào `HttpSession`, thiết lập header chống cache khi logout.
+- **Authorization Filter:** Chặn các request trái phép theo Role, chuyển hướng về `403.jsp` thân thiện.
+- **Dynamic UI:** Menu Sidebar tự động ẩn/hiện theo vai trò người dùng đang đăng nhập.
+- **Error Pages:** Trang lỗi chuẩn hóa `403.jsp`, `404.jsp`, `500.jsp`.
+- **5 Module Nghiệp vụ JPA:** Sinh viên, Lớp học, Môn học, Điểm, Sản phẩm.
 
 ---
 
