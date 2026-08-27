@@ -24,8 +24,10 @@ cong-nghe-java/
 │   └── lab08-jsf-validation/        # Lab 8 – JSF, CDI, Bean Validation, FacesMessage
 ├── Chuong9-JPA/
 │   └── lab09-jpa-repository/        # Lab 9 – JPA 3.1, Hibernate ORM 6.4, Entity, Repository, Transaction
-└── Chuong10-SecuredApp/
-    └── lab10-secured-app/           # Lab 10 – Authentication, Role-Based Access Control, Filter Security
+├── Chuong10-SecuredApp/
+│   └── lab10-secured-app/           # Lab 10 – Authentication, Role-Based Access Control, Filter Security
+└── Chuong11-SpringBootThymeleaf/
+    └── lab11-springboot-thymeleaf/  # Lab 11 – Spring Boot 3.3, Spring MVC, Thymeleaf Template Engine
 ```
 
 ---
@@ -297,11 +299,38 @@ mvn clean package cargo:run
 
 ---
 
+## 🍃 Lab 11 – Khởi tạo ứng dụng Spring Boot và giao diện Thymeleaf
+
+| Mục | Chi tiết |
+|-----|----------|
+| Công nghệ | Spring Boot 3.3.2, Spring MVC, Thymeleaf 3.1.x, Spring Boot DevTools, Maven, JDK 21 |
+| Package | `vn.edu.eaut.lab11` |
+| Web Server | Embedded Apache Tomcat 10.1 (tích hợp sẵn trong Spring Boot Starter Web) |
+| Build & Run | `cd Chuong11-SpringBootThymeleaf && mvn spring-boot:run` |
+| URL | `http://localhost:8080/` |
+
+**Tổng hợp 10 bài tập Spring Boot:**
+
+| Bài | Tên chức năng | Controller / Model / View | Mô tả |
+|---|---|---|---|
+| 1 | Tạo project Spring Boot | `Lab11Application.java` | Khởi tạo starter: Web, Thymeleaf, DevTools; chạy cổng 8080 |
+| 2 | Trang chủ | `HomeController.java`, `index.html` | Xử lý URL `/`, truyền `title`, `message` qua `Model` |
+| 3 | Lớp Student | `Student.java` | Model gồm: mã SV, họ tên, email, lớp |
+| 4 | Danh sách Sinh viên | `StudentController.java`, `students.html` | Xử lý `/students`, render bảng dữ liệu bằng `th:each` |
+| 5 | Trang Giới thiệu | `HomeController.java`, `about.html` | Xử lý `/about`, tóm tắt nội dung 4 phần Chương 4 |
+| 6 | Trang Liên hệ | `HomeController.java`, `contact.html` | Xử lý `/contact`, hiển thị thông tin Khoa CNTT & Bộ môn |
+| 7 | Menu điều hướng | `navbar` trong templates | Thanh Navbar liên kết giữa cả 5 trang chức năng |
+| 8 | Lớp Course | `Course.java` | Model gồm: mã môn, tên môn học, số tín chỉ |
+| 9 | Danh sách Khóa học | `CourseController.java`, `courses.html` | Xử lý `/courses`, hiển thị danh mục 5 học phần mẫu |
+| 10 | Định dạng CSS riêng | `static/css/style.css` | Giao diện hiện đại, thẻ Card, Table xen kẽ, Responsive |
+
+---
+
 ## ⚙️ Yêu cầu môi trường
 
 ```bash
 java -version   # OpenJDK 17+ / OpenJDK 21+
 javac -version  # javac 17+ / javac 21+
 mvn -version    # Apache Maven 3.x
-mysql --version # MySQL Server 8.0+ (Lab 5)
+mysql --version # MySQL Server 8.0+ (Lab 5, Lab 9, Lab 10)
 ```

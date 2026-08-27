@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giới thiệu</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<nav class="navbar">
+    <a class="navbar-brand" th:href="@{/}">🎓 Lab 11 - Spring Boot</a>
+    <ul class="navbar-nav">
+        <li><a th:href="@{/}">🏠 Trang chủ</a></li>
+        <li><a th:href="@{/students}">👨‍🎓 Sinh viên</a></li>
+        <li><a th:href="@{/courses}">📚 Khóa học</a></li>
+        <li><a class="active" th:href="@{/about}">ℹ️ Giới thiệu</a></li>
+        <li><a th:href="@{/contact}">📞 Liên hệ</a></li>
+    </ul>
+</nav>
+
+<div class="container">
+    <div class="page-header">
+        <h1>ℹ️ Giới thiệu ứng dụng</h1>
+        <p>Bài 5: Trang /about giới thiệu ứng dụng và nội dung Chương 4</p>
+    </div>
+
+    <div class="card">
+        <h3>📘 Thông tin học phần</h3>
+        <table>
+            <tr><td style="font-weight:600; width:160px;">Học phần</td><td th:text="${course}"></td></tr>
+            <tr><td style="font-weight:600;">Chương</td><td th:text="${chapter}"></td></tr>
+            <tr><td style="font-weight:600;">Mã học phần</td><td>IT3242</td></tr>
+            <tr><td style="font-weight:600;">Thời lượng</td><td>45 tiết (3 tín chỉ)</td></tr>
+        </table>
+    </div>
+
+    <div class="card">
+        <h3>🎯 Nội dung Chương 4 — Spring Framework</h3>
+        <table>
+            <thead>
+                <tr><th>Nội dung</th><th>Mô tả thể hiện trong bài lab</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>4.1 Giới thiệu Spring Framework &amp; Spring Boot</td><td>Tạo project Spring Boot đầu tiên, nhận biết dependency và cấu trúc thư mục</td></tr>
+                <tr><td>Công cụ phát triển ứng dụng Spring</td><td>Sử dụng Spring Initializr, Maven và IDE để tạo/chạy project</td></tr>
+                <tr><td>Giới thiệu Thymeleaf</td><td>Tạo các trang HTML động sử dụng th:text, th:href, th:each</td></tr>
+                <tr><td>Định hướng bài tập tổng hợp</td><td>Bắt đầu project quản lý sinh viên làm nền cho các lab sau</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="card">
+        <h3>🛠️ Công nghệ sử dụng</h3>
+        <div class="tech-list">
+            <span class="tech-tag">Spring Boot 3.3</span>
+            <span class="tech-tag">Spring MVC</span>
+            <span class="tech-tag">Thymeleaf</span>
+            <span class="tech-tag">Maven</span>
+            <span class="tech-tag">JDK 21</span>
+            <span class="tech-tag">DevTools</span>
+            <span class="tech-tag">HTML5</span>
+            <span class="tech-tag">CSS3</span>
+        </div>
+    </div>
+</div>
+
+<footer class="footer">
+    <p>Lab 11 — Spring Boot Thymeleaf © 2025 | Nguyễn Văn Hùng — 20230752 | DCCNTT 14.2 — EAUT</p>
+</footer>
+
+</body>
+</html>

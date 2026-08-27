@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${title}">Trang chủ</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<!-- Bài 7: Menu điều hướng -->
+<nav class="navbar">
+    <a class="navbar-brand" th:href="@{/}">🎓 Lab 11 - Spring Boot</a>
+    <ul class="navbar-nav">
+        <li><a class="active" th:href="@{/}">🏠 Trang chủ</a></li>
+        <li><a th:href="@{/students}">👨‍🎓 Sinh viên</a></li>
+        <li><a th:href="@{/courses}">📚 Khóa học</a></li>
+        <li><a th:href="@{/about}">ℹ️ Giới thiệu</a></li>
+        <li><a th:href="@{/contact}">📞 Liên hệ</a></li>
+    </ul>
+</nav>
+
+<div class="container">
+    <!-- Hero Section -->
+    <div class="hero">
+        <h1 th:text="${message}">Chào mừng</h1>
+        <p>Lab 11 — Khởi tạo ứng dụng Spring Boot và giao diện Thymeleaf<br>
+            Học phần Công nghệ Java (IT3242) — Chương 4: Spring Framework</p>
+        <div class="btn-group">
+            <a class="btn btn-white" th:href="@{/students}">👨‍🎓 Xem sinh viên</a>
+            <a class="btn btn-outline" th:href="@{/courses}">📚 Xem khóa học</a>
+        </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="icon">👨‍🎓</div>
+            <div class="value">6</div>
+            <div class="label">Sinh viên</div>
+        </div>
+        <div class="stat-card">
+            <div class="icon">📚</div>
+            <div class="value">5</div>
+            <div class="label">Khóa học</div>
+        </div>
+        <div class="stat-card">
+            <div class="icon">🏫</div>
+            <div class="value">3</div>
+            <div class="label">Lớp học</div>
+        </div>
+        <div class="stat-card">
+            <div class="icon">📄</div>
+            <div class="value">5</div>
+            <div class="label">Trang web</div>
+        </div>
+    </div>
+
+    <!-- Thông tin Lab -->
+    <div class="card">
+        <h3>📋 Thông tin bài lab</h3>
+        <table>
+            <tr><td style="font-weight:600; width:180px;">Học phần</td><td>IT3242 — Công nghệ Java</td></tr>
+            <tr><td style="font-weight:600;">Bài lab</td><td>Lab 11 — Khởi tạo ứng dụng Spring Boot và giao diện Thymeleaf</td></tr>
+            <tr><td style="font-weight:600;">Chương</td><td>Chương 4 — Phát triển ứng dụng với Spring Framework</td></tr>
+            <tr><td style="font-weight:600;">Sinh viên</td><td>Nguyễn Văn Hùng — MSV: 20230752</td></tr>
+            <tr><td style="font-weight:600;">Lớp</td><td>DCCNTT 14.2 — Đại học Công nghệ Đông Á (EAUT)</td></tr>
+        </table>
+
+        <div class="tech-list">
+            <span class="tech-tag">Spring Boot 3.3</span>
+            <span class="tech-tag">Spring MVC</span>
+            <span class="tech-tag">Thymeleaf</span>
+            <span class="tech-tag">Maven</span>
+            <span class="tech-tag">JDK 21</span>
+            <span class="tech-tag">DevTools</span>
+        </div>
+    </div>
+</div>
+
+<footer class="footer">
+    <p>Lab 11 — Spring Boot Thymeleaf © 2025 | Nguyễn Văn Hùng — 20230752 | DCCNTT 14.2 — EAUT</p>
+</footer>
+
+</body>
+</html>

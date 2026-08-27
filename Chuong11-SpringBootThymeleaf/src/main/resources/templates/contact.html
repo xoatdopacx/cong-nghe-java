@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liên hệ</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<nav class="navbar">
+    <a class="navbar-brand" th:href="@{/}">🎓 Lab 11 - Spring Boot</a>
+    <ul class="navbar-nav">
+        <li><a th:href="@{/}">🏠 Trang chủ</a></li>
+        <li><a th:href="@{/students}">👨‍🎓 Sinh viên</a></li>
+        <li><a th:href="@{/courses}">📚 Khóa học</a></li>
+        <li><a th:href="@{/about}">ℹ️ Giới thiệu</a></li>
+        <li><a class="active" th:href="@{/contact}">📞 Liên hệ</a></li>
+    </ul>
+</nav>
+
+<div class="container">
+    <div class="page-header">
+        <h1>📞 Thông tin Liên hệ</h1>
+        <p>Bài 6: Trang /contact hiển thị thông tin liên hệ khoa / bộ môn</p>
+    </div>
+
+    <div class="card">
+        <h3>🏫 Thông tin Khoa &amp; Bộ môn</h3>
+        <div class="info-grid">
+            <div class="info-item">
+                <div class="icon">🏛️</div>
+                <div>
+                    <div class="label">Trường</div>
+                    <div class="value" th:text="${university}"></div>
+                </div>
+            </div>
+            <div class="info-item">
+                <div class="icon">🏫</div>
+                <div>
+                    <div class="label">Khoa</div>
+                    <div class="value" th:text="${faculty}"></div>
+                </div>
+            </div>
+            <div class="info-item">
+                <div class="icon">👨‍💻</div>
+                <div>
+                    <div class="label">Bộ môn</div>
+                    <div class="value" th:text="${department}"></div>
+                </div>
+            </div>
+            <div class="info-item">
+                <div class="icon">📍</div>
+                <div>
+                    <div class="label">Địa chỉ</div>
+                    <div class="value" th:text="${address}"></div>
+                </div>
+            </div>
+            <div class="info-item">
+                <div class="icon">📞</div>
+                <div>
+                    <div class="label">Điện thoại</div>
+                    <div class="value" th:text="${phone}"></div>
+                </div>
+            </div>
+            <div class="info-item">
+                <div class="icon">📧</div>
+                <div>
+                    <div class="label">Email</div>
+                    <div class="value" th:text="${email}"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <h3>👤 Thông tin Sinh viên thực hiện</h3>
+        <table>
+            <tr><td style="font-weight:600; width:160px;">Họ và tên</td><td>Nguyễn Văn Hùng</td></tr>
+            <tr><td style="font-weight:600;">Mã sinh viên</td><td>20230752</td></tr>
+            <tr><td style="font-weight:600;">Lớp</td><td>DCCNTT 14.2</td></tr>
+            <tr><td style="font-weight:600;">Bài lab</td><td>Lab 11 — Khởi tạo ứng dụng Spring Boot và giao diện Thymeleaf</td></tr>
+        </table>
+    </div>
+</div>
+
+<footer class="footer">
+    <p>Lab 11 — Spring Boot Thymeleaf © 2025 | Nguyễn Văn Hùng — 20230752 | DCCNTT 14.2 — EAUT</p>
+</footer>
+
+</body>
+</html>

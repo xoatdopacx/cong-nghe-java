@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Danh sách Khóa học</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<nav class="navbar">
+    <a class="navbar-brand" th:href="@{/}">🎓 Lab 11 - Spring Boot</a>
+    <ul class="navbar-nav">
+        <li><a th:href="@{/}">🏠 Trang chủ</a></li>
+        <li><a th:href="@{/students}">👨‍🎓 Sinh viên</a></li>
+        <li><a class="active" th:href="@{/courses}">📚 Khóa học</a></li>
+        <li><a th:href="@{/about}">ℹ️ Giới thiệu</a></li>
+        <li><a th:href="@{/contact}">📞 Liên hệ</a></li>
+    </ul>
+</nav>
+
+<div class="container">
+    <div class="page-header">
+        <h1>📚 Danh sách Khóa học</h1>
+        <p>Bài 8 &amp; 9: Tạo model Course và hiển thị danh sách 5 khóa học mẫu bằng Thymeleaf</p>
+    </div>
+
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Mã môn</th>
+                    <th>Tên môn học</th>
+                    <th>Số tín chỉ</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="c, iter : ${courses}">
+                    <td th:text="${iter.count}"></td>
+                    <td><span class="badge badge-primary" th:text="${c.courseCode}"></span></td>
+                    <td th:text="${c.courseName}"></td>
+                    <td><span class="badge badge-success" th:text="${c.credits + ' TC'}"></span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="card" style="margin-top: 1.5rem;">
+        <h3>📝 Ghi chú kỹ thuật</h3>
+        <p>Dữ liệu được truyền từ <code>CourseController.java</code> qua <code>Model.addAttribute("courses", courses)</code>.
+           View sử dụng <code>th:each="c : ${courses}"</code> để render bảng dữ liệu động.</p>
+    </div>
+</div>
+
+<footer class="footer">
+    <p>Lab 11 — Spring Boot Thymeleaf © 2025 | Nguyễn Văn Hùng — 20230752 | DCCNTT 14.2 — EAUT</p>
+</footer>
+
+</body>
+</html>
