@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chi tiết Sinh viên - Lab 12 Spring MVC</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<nav class="navbar">
+    <a class="navbar-brand" th:href="@{/students}">🎓 Lab 12 - Spring MVC</a>
+    <ul class="navbar-nav">
+        <li><a th:href="@{/students}">👨‍🎓 Quản lý Sinh viên</a></li>
+        <li><a th:href="@{/students/create}">➕ Thêm mới Sinh viên</a></li>
+    </ul>
+</nav>
+
+<div class="container" style="max-width:800px;">
+    <div class="page-header">
+        <div>
+            <h1>👤 Thông tin Chi tiết Sinh viên</h1>
+            <p>Bài 6: Xem chi tiết thông tin sinh viên theo ID</p>
+        </div>
+        <div class="btn-group">
+            <a th:href="@{/students/edit/{id}(id=${student.id})}" class="btn btn-warning">✏️ Chỉnh sửa</a>
+            <a th:href="@{/students}" class="btn btn-secondary">← Quay lại danh sách</a>
+        </div>
+    </div>
+
+    <!-- Detail Card -->
+    <div class="card">
+        <div style="display:flex; align-items:center; gap:1.25rem; margin-bottom:1.5rem; padding-bottom:1.5rem; border-bottom:1px solid var(--border);">
+            <div style="width:70px; height:70px; border-radius:50%; background:linear-gradient(135deg, #1e3a8a, #2563eb); color:#fff; display:flex; align-items:center; justify-content:center; font-size:2rem; font-weight:700;">
+                <span th:text="${#strings.substring(student.fullName, 0, 1)}">H</span>
+            </div>
+            <div>
+                <h2 style="font-size:1.4rem; color:var(--text); margin-bottom:0.25rem;" th:text="${student.fullName}">Nguyễn Văn Hùng</h2>
+                <div style="display:flex; gap:0.5rem; align-items:center;">
+                    <span class="badge badge-primary" th:text="${student.studentCode}">20230752</span>
+                    <span class="badge badge-info" th:text="${student.className}">DCCNTT 14.2</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="detail-grid">
+            <div class="detail-item">
+                <div class="label">Mã số sinh viên (MSV)</div>
+                <div class="value" th:text="${student.studentCode}">20230752</div>
+            </div>
+            <div class="detail-item">
+                <div class="label">Họ và tên</div>
+                <div class="value" th:text="${student.fullName}">Nguyễn Văn Hùng</div>
+            </div>
+            <div class="detail-item">
+                <div class="label">Địa chỉ Email</div>
+                <div class="value" th:text="${student.email}">hung@eaut.edu.vn</div>
+            </div>
+            <div class="detail-item">
+                <div class="label">Lớp học</div>
+                <div class="value" th:text="${student.className}">DCCNTT 14.2</div>
+            </div>
+            <div class="detail-item">
+                <div class="label">Số điện thoại</div>
+                <div class="value" th:text="${student.phoneNumber != null ? student.phoneNumber : 'Chưa cập nhật'}">0912345678</div>
+            </div>
+            <div class="detail-item">
+                <div class="label">Địa chỉ liên hệ</div>
+                <div class="value" th:text="${student.address != null ? student.address : 'Chưa cập nhật'}">Hà Nội</div>
+            </div>
+        </div>
+
+        <div style="margin-top:1.5rem; display:flex; gap:0.75rem; justify-content:flex-end;">
+            <a th:href="@{/students/edit/{id}(id=${student.id})}" class="btn btn-warning">✏️ Sửa thông tin</a>
+            <a th:href="@{/students/delete/{id}(id=${student.id})}" class="btn btn-danger"
+               onclick="return confirm('Bạn có chắc chắn muốn xóa sinh viên này không?')">🗑️ Xóa sinh viên</a>
+        </div>
+    </div>
+</div>
+
+<footer class="footer">
+    <p>Lab 12 — Spring MVC Student CRUD © 2025 | Nguyễn Văn Hùng — 20230752 | DCCNTT 14.2 — EAUT</p>
+</footer>
+
+</body>
+</html>

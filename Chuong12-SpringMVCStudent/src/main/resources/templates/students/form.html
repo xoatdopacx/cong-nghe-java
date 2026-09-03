@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${isEdit ? 'Sửa Sinh viên' : 'Thêm Sinh viên mới'} + ' - Lab 12 Spring MVC'">Thêm Sinh viên</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<nav class="navbar">
+    <a class="navbar-brand" th:href="@{/students}">🎓 Lab 12 - Spring MVC</a>
+    <ul class="navbar-nav">
+        <li><a th:href="@{/students}">👨‍🎓 Quản lý Sinh viên</a></li>
+        <li><a th:classappend="${!isEdit} ? 'active' : ''" th:href="@{/students/create}">➕ Thêm mới Sinh viên</a></li>
+    </ul>
+</nav>
+
+<div class="container" style="max-width:800px;">
+    <div class="page-header">
+        <div>
+            <h1 th:text="${isEdit ? '✏️ Chỉnh sửa Sinh viên' : '➕ Thêm mới Sinh viên'}">➕ Thêm Sinh viên</h1>
+            <p>Bài 4 &amp; 5: Form nhập liệu Thymeleaf với <code>@ModelAttribute</code>, <code>@Valid</code> và <code>BindingResult</code></p>
+        </div>
+        <div>
+            <a th:href="@{/students}" class="btn btn-secondary">← Quay lại danh sách</a>
+        </div>
+    </div>
+
+    <!-- Card Form -->
+    <div class="card">
+        <form th:action="@{/students/save}" th:object="${student}" method="post">
+            <!-- Hidden ID khi sửa -->
+            <input type="hidden" th:field="*{id}">
+            <input type="hidden" name="isEdit" th:value="${isEdit}">
+
+            <div class="form-row">
+                <!-- Mã sinh viên -->
+                <div class="form-group">
+                    <label for="studentCode">Mã sinh viên <span class="required">*</span></label>
+                    <input type="text" id="studentCode" th:field="*{studentCode}" class="form-control"
+                           th:classappend="${#fields.hasErrors('studentCode')} ? 'is-invalid' : ''"
+                           placeholder="VD: 20230752 (tối thiểu 5 ký tự)">
+                    <div class="error-feedback" th:if="${#fields.hasErrors('studentCode')}" th:errors="*{studentCode}">
+                        Lỗi mã sinh viên
+                    </div>
+                </div>
+
+                <!-- Họ tên -->
+                <div class="form-group">
+                    <label for="fullName">Họ và tên <span class="required">*</span></label>
+                    <input type="text" id="fullName" th:field="*{fullName}" class="form-control"
+                           th:classappend="${#fields.hasErrors('fullName')} ? 'is-invalid' : ''"
+                           placeholder="VD: Nguyễn Văn Hùng">
+                    <div class="error-feedback" th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}">
+                        Lỗi họ tên
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <!-- Email -->
+                <div class="form-group">
+                    <label for="email">Email <span class="required">*</span></label>
+                    <input type="email" id="email" th:field="*{email}" class="form-control"
+                           th:classappend="${#fields.hasErrors('email')} ? 'is-invalid' : ''"
+                           placeholder="VD: hung@eaut.edu.vn">
+                    <div class="error-feedback" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">
+                        Lỗi email
+                    </div>
+                </div>
+
+                <!-- Lớp học -->
+                <div class="form-group">
+                    <label for="className">Lớp học <span class="required">*</span></label>
+                    <input type="text" id="className" th:field="*{className}" class="form-control"
+                           th:classappend="${#fields.hasErrors('className')} ? 'is-invalid' : ''"
+                           placeholder="VD: DCCNTT 14.2">
+                    <div class="error-feedback" th:if="${#fields.hasErrors('className')}" th:errors="*{className}">
+                        Lỗi lớp học
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <!-- Số điện thoại -->
+                <div class="form-group">
+                    <label for="phoneNumber">Số điện thoại</label>
+                    <input type="text" id="phoneNumber" th:field="*{phoneNumber}" class="form-control"
+                           placeholder="VD: 0912345678">
+                </div>
+
+                <!-- Địa chỉ -->
+                <div class="form-group">
+                    <label for="address">Địa chỉ</label>
+                    <input type="text" id="address" th:field="*{address}" class="form-control"
+                           placeholder="VD: Hà Nội">
+                </div>
+            </div>
+
+            <div style="margin-top:1.5rem; display:flex; gap:0.75rem;">
+                <button type="submit" class="btn btn-success" style="padding:0.7rem 1.5rem;">
+                    <span th:text="${isEdit ? '💾 Cập nhật Sinh viên' : '➕ Lưu Sinh viên'}">Lưu</span>
+                </button>
+                <a th:href="@{/students}" class="btn btn-secondary" style="padding:0.7rem 1.5rem;">Hủy bỏ</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<footer class="footer">
+    <p>Lab 12 — Spring MVC Student CRUD © 2025 | Nguyễn Văn Hùng — 20230752 | DCCNTT 14.2 — EAUT</p>
+</footer>
+
+</body>
+</html>

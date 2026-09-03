@@ -26,8 +26,10 @@ cong-nghe-java/
 │   └── lab09-jpa-repository/        # Lab 9 – JPA 3.1, Hibernate ORM 6.4, Entity, Repository, Transaction
 ├── Chuong10-SecuredApp/
 │   └── lab10-secured-app/           # Lab 10 – Authentication, Role-Based Access Control, Filter Security
-└── Chuong11-SpringBootThymeleaf/
-    └── lab11-springboot-thymeleaf/  # Lab 11 – Spring Boot 3.3, Spring MVC, Thymeleaf Template Engine
+├── Chuong11-SpringBootThymeleaf/
+│   └── lab11-springboot-thymeleaf/  # Lab 11 – Spring Boot 3.3, Spring MVC, Thymeleaf Template Engine
+└── Chuong12-SpringMVCStudent/
+    └── lab12-spring-mvc-student/    # Lab 12 – Spring MVC, Thymeleaf Form, @ModelAttribute, Validation, CRUD
 ```
 
 ---
@@ -323,6 +325,33 @@ mvn clean package cargo:run
 | 8 | Lớp Course | `Course.java` | Model gồm: mã môn, tên môn học, số tín chỉ |
 | 9 | Danh sách Khóa học | `CourseController.java`, `courses.html` | Xử lý `/courses`, hiển thị danh mục 5 học phần mẫu |
 | 10 | Định dạng CSS riêng | `static/css/style.css` | Giao diện hiện đại, thẻ Card, Table xen kẽ, Responsive |
+
+---
+
+## 👨‍🎓 Lab 12 – Phát triển ứng dụng web với Spring MVC
+
+| Mục | Chi tiết |
+|-----|----------|
+| Công nghệ | Spring Boot 3.3.2, Spring MVC, Thymeleaf Form, Hibernate Validator, Maven, JDK 21 |
+| Package | `vn.edu.eaut.lab12` |
+| Web Server | Embedded Apache Tomcat 10.1 |
+| Build & Run | `cd Chuong12-SpringMVCStudent && mvn spring-boot:run` |
+| URL | `http://localhost:8080/students` |
+
+**Tổng hợp 10 bài tập Spring MVC:**
+
+| Bài | Tên chức năng | Controller / Model / View | Mô tả |
+|---|---|---|---|
+| 1 | Model Student | `Student.java` | Validation: `@NotBlank`, `@Size`, `@Email` |
+| 2 | Service giả lập | `StudentService.java` | In-memory List quản lý dữ liệu với `nextId` |
+| 3 | Danh sách sinh viên | `StudentController.java`, `list.html` | Xử lý `GET /students`, hiển thị bảng sinh viên |
+| 4 | Form thêm mới | `StudentController.java`, `form.html` | Form Thymeleaf với `th:object`, `th:field`, `POST /students/save` |
+| 5 | Validation cho form | `BindingResult`, `form.html` | `@Valid` kiểm tra dữ liệu, hiển thị lỗi đỏ bằng `th:errors` |
+| 6 | Xem chi tiết SV | `StudentController.java`, `detail.html` | Xử lý `GET /students/detail/{id}`, xem hồ sơ cá nhân |
+| 7 | Sửa thông tin SV | `StudentController.java`, `form.html` | Xử lý `GET /students/edit/{id}`, nạp dữ liệu cũ lên form |
+| 8 | Xóa sinh viên | `StudentController.java` | Xử lý `GET /students/delete/{id}`, xóa và chuyển hướng |
+| 9 | Tìm kiếm sinh viên | `StudentService.search()` | Tìm kiếm theo từ khóa (họ tên, mã SV, lớp) qua URL param |
+| 10 | Chống trùng mã SV | `StudentService.existsByStudentCode` | Validation tùy chỉnh kiểm tra trùng mã khi thêm/sửa |
 
 ---
 

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Danh sách Sinh viên - Lab 12 Spring MVC</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<nav class="navbar">
+    <a class="navbar-brand" th:href="@{/students}">🎓 Lab 12 - Spring MVC</a>
+    <ul class="navbar-nav">
+        <li><a class="active" th:href="@{/students}">👨‍🎓 Quản lý Sinh viên</a></li>
+        <li><a th:href="@{/students/create}">➕ Thêm mới Sinh viên</a></li>
+    </ul>
+</nav>
+
+<div class="container">
+    <div class="page-header">
+        <div>
+            <h1>👨‍🎓 Quản lý Sinh viên (Spring MVC CRUD)</h1>
+            <p>Lab 12: Phát triển ứng dụng web với Spring MVC, Thymeleaf Form &amp; Validation</p>
+        </div>
+        <div>
+            <a th:href="@{/students/create}" class="btn btn-primary">➕ Thêm Sinh viên mới</a>
+        </div>
+    </div>
+
+    <!-- Thông báo thành công -->
+    <div th:if="${successMessage}" class="alert alert-success">
+        <span>✅</span> <span th:text="${successMessage}"></span>
+    </div>
+
+    <!-- Thông báo lỗi -->
+    <div th:if="${errorMessage}" class="alert alert-danger">
+        <span>❌</span> <span th:text="${errorMessage}"></span>
+    </div>
+
+    <!-- Tìm kiếm sinh viên (Bài 9) -->
+    <form th:action="@{/students}" method="get" class="search-bar">
+        <input type="text" name="keyword" th:value="${keyword}" class="form-control"
+               placeholder="🔍 Tìm kiếm theo mã SV, họ tên, lớp, email...">
+        <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+        <a th:if="${keyword != null && !keyword.isEmpty()}" th:href="@{/students}" class="btn btn-secondary">Xóa lọc</a>
+    </form>
+
+    <!-- Bảng danh sách sinh viên -->
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Mã SV</th>
+                    <th>Họ và tên</th>
+                    <th>Email</th>
+                    <th>Lớp học</th>
+                    <th>Điện thoại</th>
+                    <th>Thao tác</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="s, iter : ${students}">
+                    <td th:text="${iter.count}">1</td>
+                    <td><span class="badge badge-primary" th:text="${s.studentCode}">SV001</span></td>
+                    <td>
+                        <strong th:text="${s.fullName}">Nguyễn Văn Hùng</strong>
+                    </td>
+                    <td th:text="${s.email}">hung@eaut.edu.vn</td>
+                    <td><span class="badge badge-info" th:text="${s.className}">DCCNTT 14.2</span></td>
+                    <td th:text="${s.phoneNumber != null ? s.phoneNumber : '---'}">0912345678</td>
+                    <td>
+                        <div class="btn-group">
+                            <a th:href="@{/students/detail/{id}(id=${s.id})}" class="btn btn-info btn-sm" title="Xem chi tiết">👁️ Xem</a>
+                            <a th:href="@{/students/edit/{id}(id=${s.id})}" class="btn btn-warning btn-sm" title="Chỉnh sửa">✏️ Sửa</a>
+                            <a th:href="@{/students/delete/{id}(id=${s.id})}" class="btn btn-danger btn-sm"
+                               onclick="return confirm('Bạn có chắc chắn muốn xóa sinh viên này không?')" title="Xóa">🗑️ Xóa</a>
+                        </div>
+                    </td>
+                </tr>
+                <tr th:if="${#lists.isEmpty(students)}">
+                    <td colspan="7" style="text-align:center; padding:2rem; color:var(--text-muted);">
+                        Không tìm thấy sinh viên nào phù hợp với điều kiện tìm kiếm.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Thống kê -->
+    <div style="margin-top:1rem; display:flex; justify-content:space-between; align-items:center; color:var(--text-muted); font-size:0.9rem;">
+        <span>Tổng số: <strong th:text="${#lists.size(students)}">0</strong> sinh viên (Hệ thống: <strong th:text="${totalStudents}">6</strong>)</span>
+        <span>Sinh viên thực hiện: <strong>Nguyễn Văn Hùng — 20230752</strong></span>
+    </div>
+</div>
+
+<footer class="footer">
+    <p>Lab 12 — Spring MVC Student CRUD © 2025 | Nguyễn Văn Hùng — 20230752 | DCCNTT 14.2 — EAUT</p>
+</footer>
+
+</body>
+</html>
