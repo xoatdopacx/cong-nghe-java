@@ -160,4 +160,3 @@ StudentController.save(@Valid @ModelAttribute Student, BindingResult)
 ## 7. KẾT LUẬN & TỰ ĐÁNH GIÁ
 
 - **Kết quả:** Hoàn thành 100% tất cả 10 bài tập theo đúng chuẩn kiến trúc Spring MVC.
-- **Tự đánh giá:** 10.0 / 10.0.
