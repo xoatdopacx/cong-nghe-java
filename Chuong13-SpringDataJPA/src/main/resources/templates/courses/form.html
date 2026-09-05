@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${isEdit ? 'Sửa Khóa học' : 'Thêm Khóa học'} + ' - Lab 13'">Form</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<nav class="navbar">
+    <a class="navbar-brand" th:href="@{/}">🎓 Lab 13 - Spring Data JPA</a>
+    <ul class="navbar-nav">
+        <li><a th:href="@{/}">🏠 Trang chủ</a></li>
+        <li><a th:href="@{/students}">👨‍🎓 Sinh viên</a></li>
+        <li><a th:href="@{/courses}">📚 Khóa học</a></li>
+    </ul>
+</nav>
+<div class="container" style="max-width:700px;">
+    <div class="page-header">
+        <div>
+            <h1 th:text="${isEdit ? '✏️ Chỉnh sửa Khóa học' : '➕ Thêm Khóa học mới'}"></h1>
+            <p>Lưu vào bảng <code>courses</code> qua <code>CourseRepository.save()</code></p>
+        </div>
+        <a th:href="@{/courses}" class="btn btn-secondary">← Quay lại</a>
+    </div>
+    <div class="card">
+        <form th:action="@{/courses/save}" th:object="${course}" method="post">
+            <input type="hidden" th:field="*{id}">
+            <div class="form-group">
+                <label for="courseCode">Mã môn học <span class="required">*</span></label>
+                <input type="text" id="courseCode" th:field="*{courseCode}" class="form-control" th:classappend="${#fields.hasErrors('courseCode')} ? 'is-invalid'" placeholder="VD: IT3242">
+                <div class="error-feedback" th:if="${#fields.hasErrors('courseCode')}" th:errors="*{courseCode}"></div>
+            </div>
+            <div class="form-group">
+                <label for="courseName">Tên môn học <span class="required">*</span></label>
+                <input type="text" id="courseName" th:field="*{courseName}" class="form-control" th:classappend="${#fields.hasErrors('courseName')} ? 'is-invalid'" placeholder="VD: Công nghệ Java">
+                <div class="error-feedback" th:if="${#fields.hasErrors('courseName')}" th:errors="*{courseName}"></div>
+            </div>
+            <div class="form-group">
+                <label for="credits">Số tín chỉ <span class="required">*</span></label>
+                <input type="number" id="credits" th:field="*{credits}" class="form-control" th:classappend="${#fields.hasErrors('credits')} ? 'is-invalid'" min="1" max="10" placeholder="VD: 3">
+                <div class="error-feedback" th:if="${#fields.hasErrors('credits')}" th:errors="*{credits}"></div>
+            </div>
+            <div style="margin-top:1.5rem; display:flex; gap:0.75rem;">
+                <button type="submit" class="btn btn-success" th:text="${isEdit ? '💾 Cập nhật' : '➕ Lưu vào CSDL'}"></button>
+                <a th:href="@{/courses}" class="btn btn-secondary">Hủy</a>
+            </div>
+        </form>
+    </div>
+</div>
+<footer class="footer"><p>Lab 13 — Spring Data JPA © 2025 | Nguyễn Văn Hùng — 20230752 | DCCNTT 14.2 — EAUT</p></footer>
+</body>
+</html>

@@ -28,8 +28,9 @@ cong-nghe-java/
 │   └── lab10-secured-app/           # Lab 10 – Authentication, Role-Based Access Control, Filter Security
 ├── Chuong11-SpringBootThymeleaf/
 │   └── lab11-springboot-thymeleaf/  # Lab 11 – Spring Boot 3.3, Spring MVC, Thymeleaf Template Engine
-└── Chuong12-SpringMVCStudent/
-    └── lab12-spring-mvc-student/    # Lab 12 – Spring MVC, Thymeleaf Form, @ModelAttribute, Validation, CRUD
+├── Chuong12-SpringMVCStudent/
+│   └── lab12-spring-mvc-student/    # Lab 12 – Spring MVC, Thymeleaf Form, @ModelAttribute, Validation, CRUD
+└── Chuong13-SpringDataJPA/          # Lab 13 – Spring Data JPA, Hibernate ORM, H2/MySQL, Repository, Service, CRUD
 ```
 
 ---
@@ -352,6 +353,34 @@ mvn clean package cargo:run
 | 8 | Xóa sinh viên | `StudentController.java` | Xử lý `GET /students/delete/{id}`, xóa và chuyển hướng |
 | 9 | Tìm kiếm sinh viên | `StudentService.search()` | Tìm kiếm theo từ khóa (họ tên, mã SV, lớp) qua URL param |
 | 10 | Chống trùng mã SV | `StudentService.existsByStudentCode` | Validation tùy chỉnh kiểm tra trùng mã khi thêm/sửa |
+
+---
+
+## 🗄️ Lab 13 – Kết nối cơ sở dữ liệu với Spring Data JPA
+
+| Mục | Chi tiết |
+|-----|----------|
+| Công nghệ | Spring Boot 3.3.2, Spring Data JPA, Hibernate ORM 6.5, H2 Database, MySQL 8.0, Thymeleaf, Maven, JDK 21 |
+| Package | `vn.edu.eaut.lab13` |
+| Web Server | Embedded Apache Tomcat 10.1 (Port 8080) |
+| Build & Run | `cd Chuong13-SpringDataJPA && mvn spring-boot:run` |
+| URL Ứng dụng | `http://localhost:8080/` (Quản lý SV: `/students`, Quản lý Khóa học: `/courses`) |
+| H2 Web Console | `http://localhost:8080/h2-console` (JDBC URL: `jdbc:h2:mem:eautdb`, User: `sa`) |
+
+**Tổng hợp 10 bài tập Spring Data JPA:**
+
+| Bài | Tên chức năng | Thành phần kỹ thuật | Mô tả thực hiện |
+|---|---|---|---|
+| 1 | Cấu hình JPA & H2 | `pom.xml`, `application.properties` | Tích hợp starter Data JPA, H2, MySQL, kích hoạt H2 Console và SQL format |
+| 2 | Entity Student | `entity/Student.java` | Ánh xạ bảng `students` với `@Entity`, `@Id`, `@GeneratedValue`, validation `@NotBlank`, `@Email` |
+| 3 | StudentRepository | `repository/StudentRepository.java` | Kế thừa `JpaRepository`, khai báo derived queries `findByFullNameContainingIgnoreCase`, `existsByStudentCode` |
+| 4 | Tầng StudentService | `service/StudentService.java` | Tiêm `StudentRepository`, cung cấp các phương thức CRUD nghiệp vụ |
+| 5 | Controller CRUD | `controller/StudentController.java` | Tiếp nhận request, phối hợp Service và View Thymeleaf thực hiện hiển thị, thêm, xóa |
+| 6 | Sửa sinh viên theo ID | `edit/{id}`, `templates/students/form.html` | Lấy thực thể theo ID từ DB, đổ dữ liệu lên form, cập nhật thông qua `save()` |
+| 7 | Tìm kiếm sinh viên | `StudentService.search()` | Tìm kiếm theo họ tên, mã SV, lớp học kết hợp phân trang / lọc linh hoạt |
+| 8 | Entity Course | `entity/Course.java` | Ánh xạ bảng `courses` gồm mã môn, tên môn học, số tín chỉ (`@Min`, `@Max`) |
+| 9 | CRUD Khóa học | `CourseRepository`, `CourseService`, `CourseController` | Xây dựng trọn vẹn CRUD và giao diện quản lý khóa học / môn học |
+| 10 | Chuyển sang MySQL | `application-mysql.properties` | Cấu hình kết nối MySQL Server (`lab13_eaut`), khởi tạo bảng và thực nghiệm truy vấn |
 
 ---
 

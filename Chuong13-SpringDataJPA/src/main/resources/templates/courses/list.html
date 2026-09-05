@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Danh sách Khóa học - Lab 13</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<nav class="navbar">
+    <a class="navbar-brand" th:href="@{/}">🎓 Lab 13 - Spring Data JPA</a>
+    <ul class="navbar-nav">
+        <li><a th:href="@{/}">🏠 Trang chủ</a></li>
+        <li><a th:href="@{/students}">👨‍🎓 Sinh viên</a></li>
+        <li><a class="active" th:href="@{/courses}">📚 Khóa học</a></li>
+        <li><a th:href="@{/h2-console}" target="_blank">🗄️ H2 Console</a></li>
+    </ul>
+</nav>
+<div class="container">
+    <div class="page-header">
+        <div>
+            <h1>📚 Quản lý Khóa học (Bài 8, 9)</h1>
+            <p>Entity Course lưu trữ trong bảng <code>courses</code> — CRUD đầy đủ qua <code>CourseRepository</code></p>
+        </div>
+        <a th:href="@{/courses/create}" class="btn btn-primary">➕ Thêm Khóa học</a>
+    </div>
+    <div th:if="${successMessage}" class="alert alert-success">✅ <span th:text="${successMessage}"></span></div>
+    <div th:if="${errorMessage}" class="alert alert-danger">❌ <span th:text="${errorMessage}"></span></div>
+    <form th:action="@{/courses}" method="get" class="search-bar">
+        <input type="text" name="keyword" th:value="${keyword}" class="form-control" placeholder="🔍 Tìm kiếm theo tên môn học...">
+        <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+        <a th:if="${keyword != null && !keyword.isEmpty()}" th:href="@{/courses}" class="btn btn-secondary">Xóa lọc</a>
+    </form>
+    <div class="table-wrapper">
+        <table>
+            <thead><tr><th>#</th><th>Mã môn</th><th>Tên môn học</th><th>Số tín chỉ</th><th>Thao tác</th></tr></thead>
+            <tbody>
+                <tr th:each="c, iter : ${courses}">
+                    <td th:text="${iter.count}"></td>
+                    <td><span class="badge badge-primary" th:text="${c.courseCode}"></span></td>
+                    <td><strong th:text="${c.courseName}"></strong></td>
+                    <td><span class="badge badge-warning" th:text="${c.credits + ' TC'}"></span></td>
+                    <td>
+                        <div class="btn-group">
+                            <a th:href="@{/courses/edit/{id}(id=${c.id})}" class="btn btn-warning btn-sm">✏️ Sửa</a>
+                            <a th:href="@{/courses/delete/{id}(id=${c.id})}" class="btn btn-danger btn-sm" onclick="return confirm('Xóa môn học này?')">🗑️ Xóa</a>
+                        </div>
+                    </td>
+                </tr>
+                <tr th:if="${#lists.isEmpty(courses)}">
+                    <td colspan="5" style="text-align:center; padding:2rem; color:var(--text-muted);">Không có khóa học nào.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div style="margin-top:1rem; color:var(--text-muted); font-size:0.9rem;">Tổng: <strong th:text="${totalCourses}">0</strong> khóa học trong cơ sở dữ liệu</div>
+</div>
+<footer class="footer"><p>Lab 13 — Spring Data JPA © 2025 | Nguyễn Văn Hùng — 20230752 | DCCNTT 14.2 — EAUT</p></footer>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab 13 - Spring Data JPA</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<nav class="navbar">
+    <a class="navbar-brand" th:href="@{/}">🎓 Lab 13 - Spring Data JPA</a>
+    <ul class="navbar-nav">
+        <li><a class="active" th:href="@{/}">🏠 Trang chủ</a></li>
+        <li><a th:href="@{/students}">👨‍🎓 Sinh viên</a></li>
+        <li><a th:href="@{/courses}">📚 Khóa học</a></li>
+        <li><a th:href="@{/h2-console}" target="_blank">🗄️ H2 Console</a></li>
+    </ul>
+</nav>
+<div class="container">
+    <div style="text-align:center; padding:3rem 2rem; background:linear-gradient(135deg,#1e3a8a,#2563eb); border-radius:var(--radius); color:#fff; margin-bottom:2rem; box-shadow:var(--shadow-md);">
+        <h1 style="font-size:2rem; font-weight:800; margin-bottom:0.5rem;">Lab 13 — Spring Data JPA</h1>
+        <p style="opacity:0.9; font-size:1.05rem;">Kết nối cơ sở dữ liệu với Spring Data JPA, Hibernate ORM và H2 Database</p>
+        <p style="opacity:0.8; font-size:0.9rem; margin-top:0.5rem;">Học phần: Công nghệ Java (IT3242) — Chương 4: Spring Framework</p>
+        <div style="margin-top:1.5rem; display:flex; justify-content:center; gap:0.75rem; flex-wrap:wrap;">
+            <a th:href="@{/students}" class="btn" style="background:#fff; color:#1e3a8a; font-weight:700;">👨‍🎓 Quản lý Sinh viên</a>
+            <a th:href="@{/courses}" class="btn" style="background:transparent; color:#fff; border:2px solid rgba(255,255,255,0.6);">📚 Quản lý Khóa học</a>
+        </div>
+    </div>
+    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:1rem; margin-bottom:2rem;">
+        <div class="card" style="text-align:center; padding:1.5rem;">
+            <div style="font-size:2.5rem;">👨‍🎓</div>
+            <div style="font-size:2rem; font-weight:800; color:var(--primary);" th:text="${totalStudents}">0</div>
+            <div style="color:var(--text-muted); font-size:0.9rem;">Sinh viên trong CSDL</div>
+        </div>
+        <div class="card" style="text-align:center; padding:1.5rem;">
+            <div style="font-size:2.5rem;">📚</div>
+            <div style="font-size:2rem; font-weight:800; color:var(--primary);" th:text="${totalCourses}">0</div>
+            <div style="color:var(--text-muted); font-size:0.9rem;">Khóa học trong CSDL</div>
+        </div>
+        <div class="card" style="text-align:center; padding:1.5rem;">
+            <div style="font-size:2.5rem;">🗄️</div>
+            <div style="font-size:2rem; font-weight:800; color:var(--success);">H2</div>
+            <div style="color:var(--text-muted); font-size:0.9rem;">Database Engine</div>
+        </div>
+        <div class="card" style="text-align:center; padding:1.5rem;">
+            <div style="font-size:2.5rem;">🔗</div>
+            <div style="font-size:2rem; font-weight:800; color:var(--info);">JPA</div>
+            <div style="color:var(--text-muted); font-size:0.9rem;">Hibernate ORM 6.x</div>
+        </div>
+    </div>
+    <div class="card">
+        <h3>📋 Thông tin Lab 13</h3>
+        <table>
+            <tr><td style="font-weight:600; width:200px;">Sinh viên</td><td>Nguyễn Văn Hùng — MSV: 20230752 — DCCNTT 14.2</td></tr>
+            <tr><td style="font-weight:600;">Công nghệ</td><td>Spring Boot 3.3.2, Spring Data JPA, Hibernate ORM, H2 Database, Thymeleaf, Maven, JDK 21</td></tr>
+            <tr><td style="font-weight:600;">Kiến trúc</td><td>Controller → Service → Repository (JpaRepository) → Database</td></tr>
+            <tr><td style="font-weight:600;">H2 Console URL</td><td><code>http://localhost:8080/h2-console</code> (JDBC URL: <code>jdbc:h2:mem:eautdb</code>, username: <code>sa</code>)</td></tr>
+        </table>
+    </div>
+</div>
+<footer class="footer">
+    <p>Lab 13 — Spring Data JPA © 2025 | Nguyễn Văn Hùng — 20230752 | DCCNTT 14.2 — EAUT</p>
+</footer>
+</body>
+</html>

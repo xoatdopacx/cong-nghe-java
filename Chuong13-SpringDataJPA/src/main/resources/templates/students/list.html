@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Danh sách Sinh viên - Lab 13</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<nav class="navbar">
+    <a class="navbar-brand" th:href="@{/}">🎓 Lab 13 - Spring Data JPA</a>
+    <ul class="navbar-nav">
+        <li><a th:href="@{/}">🏠 Trang chủ</a></li>
+        <li><a class="active" th:href="@{/students}">👨‍🎓 Sinh viên</a></li>
+        <li><a th:href="@{/courses}">📚 Khóa học</a></li>
+        <li><a th:href="@{/h2-console}" target="_blank">🗄️ H2 Console</a></li>
+    </ul>
+</nav>
+<div class="container">
+    <div class="page-header">
+        <div>
+            <h1>👨‍🎓 Quản lý Sinh viên (Spring Data JPA)</h1>
+            <p>Dữ liệu được lưu trữ trong cơ sở dữ liệu H2 thông qua JpaRepository</p>
+        </div>
+        <a th:href="@{/students/create}" class="btn btn-primary">➕ Thêm Sinh viên</a>
+    </div>
+    <div th:if="${successMessage}" class="alert alert-success">✅ <span th:text="${successMessage}"></span></div>
+    <div th:if="${errorMessage}" class="alert alert-danger">❌ <span th:text="${errorMessage}"></span></div>
+    <form th:action="@{/students}" method="get" class="search-bar">
+        <input type="text" name="keyword" th:value="${keyword}" class="form-control" placeholder="🔍 Tìm kiếm sinh viên theo họ tên, mã SV, lớp...">
+        <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+        <a th:if="${keyword != null && !keyword.isEmpty()}" th:href="@{/students}" class="btn btn-secondary">Xóa lọc</a>
+    </form>
+    <div class="table-wrapper">
+        <table>
+            <thead><tr><th>#</th><th>Mã SV</th><th>Họ và tên</th><th>Email</th><th>Lớp học</th><th>SĐT</th><th>Thao tác</th></tr></thead>
+            <tbody>
+                <tr th:each="s, iter : ${students}">
+                    <td th:text="${iter.count}"></td>
+                    <td><span class="badge badge-primary" th:text="${s.studentCode}"></span></td>
+                    <td><strong th:text="${s.fullName}"></strong></td>
+                    <td th:text="${s.email}"></td>
+                    <td><span class="badge badge-info" th:text="${s.className}"></span></td>
+                    <td th:text="${s.phoneNumber != null ? s.phoneNumber : '---'}"></td>
+                    <td>
+                        <div class="btn-group">
+                            <a th:href="@{/students/edit/{id}(id=${s.id})}" class="btn btn-warning btn-sm">✏️ Sửa</a>
+                            <a th:href="@{/students/delete/{id}(id=${s.id})}" class="btn btn-danger btn-sm" onclick="return confirm('Bạn có chắc chắn muốn xóa?')">🗑️ Xóa</a>
+                        </div>
+                    </td>
+                </tr>
+                <tr th:if="${#lists.isEmpty(students)}">
+                    <td colspan="7" style="text-align:center; padding:2rem; color:var(--text-muted);">Không có sinh viên nào.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div style="margin-top:1rem; display:flex; justify-content:space-between; color:var(--text-muted); font-size:0.9rem;">
+        <span>Tổng: <strong th:text="${#lists.size(students)}">0</strong> / <strong th:text="${totalStudents}">0</strong> sinh viên (DB: H2 mem:eautdb)</span>
+        <span>Nguyễn Văn Hùng — 20230752</span>
+    </div>
+</div>
+<footer class="footer"><p>Lab 13 — Spring Data JPA © 2025 | Nguyễn Văn Hùng — 20230752 | DCCNTT 14.2 — EAUT</p></footer>
+</body>
+</html>
