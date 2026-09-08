@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý Khóa học (Admin) - Lab 14</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<nav class="navbar">
+    <a class="navbar-brand" th:href="@{/}">🔐 Lab 14 - Spring Security</a>
+    <ul class="navbar-nav">
+        <li><a th:href="@{/}">🏠 Trang chủ</a></li>
+        <li><a th:href="@{/students}">👨‍🎓 Sinh viên</a></li>
+        <li><a class="active" th:href="@{/courses}">📚 Khóa học</a></li>
+        <li>
+            <form th:action="@{/logout}" method="post" style="display:inline;">
+                <button type="submit" style="background:transparent;border:none;color:#fff;cursor:pointer;font-size:0.95rem;">🚪 Đăng xuất (<span sec:authentication="name"></span>)</button>
+            </form>
+        </li>
+    </ul>
+</nav>
+<div class="container">
+    <div class="page-header">
+        <div>
+            <h1>📚 Quản lý Khóa học <span class="badge badge-danger" style="font-size:0.7rem;">🔒 ADMIN ONLY</span></h1>
+            <p>Bài 6: Chỉ tài khoản ADMIN được truy cập trang này</p>
+        </div>
+        <a th:href="@{/courses/create}" class="btn btn-primary">➕ Thêm Khóa học</a>
+    </div>
+    <div th:if="${successMessage}" class="alert alert-success">✅ <span th:text="${successMessage}"></span></div>
+    <div th:if="${errorMessage}" class="alert alert-danger">❌ <span th:text="${errorMessage}"></span></div>
+    <div class="table-wrapper">
+        <table>
+            <thead><tr><th>#</th><th>Mã môn</th><th>Tên môn học</th><th>Tín chỉ</th><th>Thao tác</th></tr></thead>
+            <tbody>
+                <tr th:each="c, iter : ${courses}">
+                    <td th:text="${iter.count}"></td>
+                    <td><span class="badge badge-primary" th:text="${c.courseCode}"></span></td>
+                    <td><strong th:text="${c.courseName}"></strong></td>
+                    <td><span class="badge badge-warning" th:text="${c.credits + ' TC'}"></span></td>
+                    <td>
+                        <div class="btn-group">
+                            <a th:href="@{/courses/edit/{id}(id=${c.id})}" class="btn btn-warning btn-sm">✏️ Sửa</a>
+                            <a th:href="@{/courses/delete/{id}(id=${c.id})}" class="btn btn-danger btn-sm" onclick="return confirm('Xóa?')">🗑️ Xóa</a>
+                        </div>
+                    </td>
+                </tr>
+                <tr th:if="${#lists.isEmpty(courses)}"><td colspan="5" style="text-align:center; padding:2rem; color:var(--text-muted);">Không có khóa học nào.</td></tr>
+            </tbody>
+        </table>
+    </div>
+    <div style="margin-top:1rem; color:var(--text-muted); font-size:0.9rem;">Tổng: <strong th:text="${totalCourses}">0</strong> khóa học | Đăng nhập: <strong sec:authentication="name"></strong></div>
+</div>
+<footer class="footer"><p>Lab 14 — Spring Security © 2025 | Nguyễn Văn Hùng — 20230752</p></footer>
+</body>
+</html>

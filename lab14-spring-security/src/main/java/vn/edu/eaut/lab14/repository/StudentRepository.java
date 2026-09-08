@@ -1,0 +1,11 @@
+package vn.edu.eaut.lab14.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import vn.edu.eaut.lab14.entity.Student;
+import java.util.List;
+
+public interface StudentRepository extends JpaRepository<Student, Long> {
+    List<Student> findByFullNameContainingIgnoreCase(String keyword);
+    boolean existsByStudentCode(String studentCode);
+    boolean existsByStudentCodeAndIdNot(String studentCode, Long id);
+}

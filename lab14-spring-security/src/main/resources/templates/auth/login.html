@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng nhập - Lab 14</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <style>
+        .login-wrapper { display:flex; justify-content:center; align-items:center; min-height:80vh; }
+        .login-card { background:var(--card); border-radius:var(--radius); box-shadow:var(--shadow-md); padding:2.5rem; width:100%; max-width:420px; }
+        .login-card h2 { text-align:center; font-size:1.5rem; font-weight:800; margin-bottom:0.5rem; color:var(--primary-dark); }
+        .login-card p { text-align:center; color:var(--text-muted); font-size:0.9rem; margin-bottom:1.5rem; }
+        .login-card .form-group { margin-bottom:1rem; }
+        .login-card label { display:block; font-weight:600; margin-bottom:0.3rem; font-size:0.9rem; }
+        .login-card input { width:100%; padding:0.6rem 0.8rem; border:1.5px solid var(--border); border-radius:8px; font-size:1rem; transition:border 0.2s; }
+        .login-card input:focus { outline:none; border-color:var(--primary); box-shadow:0 0 0 3px rgba(37,99,235,0.15); }
+        .login-card .btn-login { width:100%; padding:0.75rem; font-size:1rem; font-weight:700; background:linear-gradient(135deg,#1e3a8a,#2563eb); color:#fff; border:none; border-radius:8px; cursor:pointer; transition:transform 0.15s; }
+        .login-card .btn-login:hover { transform:translateY(-1px); }
+        .login-hint { text-align:center; margin-top:1rem; padding:0.75rem; background:var(--info-light); border-radius:8px; font-size:0.85rem; color:var(--info); }
+    </style>
+</head>
+<body>
+<nav class="navbar">
+    <a class="navbar-brand" th:href="@{/}">🔐 Lab 14 - Spring Security</a>
+    <ul class="navbar-nav">
+        <li><a th:href="@{/}">🏠 Trang chủ</a></li>
+    </ul>
+</nav>
+<div class="container">
+    <div class="login-wrapper">
+        <div class="login-card">
+            <div style="text-align:center; font-size:3rem; margin-bottom:0.5rem;">🔐</div>
+            <h2>Đăng nhập hệ thống</h2>
+            <p>Vui lòng nhập tên đăng nhập và mật khẩu</p>
+
+            <div th:if="${param.error}" class="alert alert-danger">❌ Sai tên đăng nhập hoặc mật khẩu!</div>
+            <div th:if="${param.logout}" class="alert alert-success">✅ Đã đăng xuất thành công.</div>
+
+            <form th:action="@{/login}" method="post">
+                <div class="form-group">
+                    <label for="username">👤 Tên đăng nhập</label>
+                    <input type="text" id="username" name="username" placeholder="VD: admin" required autofocus>
+                </div>
+                <div class="form-group">
+                    <label for="password">🔑 Mật khẩu</label>
+                    <input type="password" id="password" name="password" placeholder="VD: 123456" required>
+                </div>
+                <button type="submit" class="btn-login">🚀 Đăng nhập</button>
+            </form>
+
+            <div class="login-hint">
+                <strong>Tài khoản kiểm thử (lưu trong CSDL):</strong><br>
+                🔹 <code>admin / 123456</code> (ROLE_ADMIN)<br>
+                🔹 <code>user / 123456</code> (ROLE_USER)<br>
+                🔹 <code>hung / 123456</code> (ROLE_ADMIN)
+            </div>
+        </div>
+    </div>
+</div>
+<footer class="footer"><p>Lab 14 — Spring Security © 2025 | Nguyễn Văn Hùng — 20230752</p></footer>
+</body>
+</html>

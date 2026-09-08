@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab 14 - Spring Security</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<nav class="navbar">
+    <a class="navbar-brand" th:href="@{/}">🔐 Lab 14 - Spring Security</a>
+    <ul class="navbar-nav">
+        <li><a class="active" th:href="@{/}">🏠 Trang chủ</a></li>
+        <!-- Bài 8: Menu khác nhau theo ADMIN / USER -->
+        <li sec:authorize="isAuthenticated()"><a th:href="@{/students}">👨‍🎓 Sinh viên</a></li>
+        <li sec:authorize="hasRole('ADMIN')"><a th:href="@{/courses}">📚 Khóa học (Admin)</a></li>
+        <li sec:authorize="!isAuthenticated()"><a th:href="@{/login}">🔐 Đăng nhập</a></li>
+        <li sec:authorize="isAuthenticated()">
+            <form th:action="@{/logout}" method="post" style="display:inline;">
+                <button type="submit" style="background:transparent;border:none;color:#fff;cursor:pointer;font-size:0.95rem;">🚪 Đăng xuất (<span sec:authentication="name"></span>)</button>
+            </form>
+        </li>
+    </ul>
+</nav>
+<div class="container">
+    <div style="text-align:center; padding:3rem 2rem; background:linear-gradient(135deg,#1e3a8a,#2563eb); border-radius:var(--radius); color:#fff; margin-bottom:2rem; box-shadow:var(--shadow-md);">
+        <h1 style="font-size:2rem; font-weight:800; margin-bottom:0.5rem;">🔐 Lab 14 — Spring Security</h1>
+        <p style="opacity:0.9; font-size:1.05rem;">Bảo mật ứng dụng với Spring Security: Authentication, Authorization, Role-Based Access Control</p>
+        <p style="opacity:0.8; font-size:0.9rem; margin-top:0.5rem;">Học phần: Công nghệ Java (IT3242) — Chương 4: Spring Framework</p>
+        <div style="margin-top:1.5rem; display:flex; justify-content:center; gap:0.75rem; flex-wrap:wrap;">
+            <a sec:authorize="!isAuthenticated()" th:href="@{/login}" class="btn" style="background:#fff; color:#1e3a8a; font-weight:700;">🔐 Đăng nhập</a>
+            <a sec:authorize="isAuthenticated()" th:href="@{/students}" class="btn" style="background:#fff; color:#1e3a8a; font-weight:700;">👨‍🎓 Quản lý Sinh viên</a>
+            <a sec:authorize="hasRole('ADMIN')" th:href="@{/courses}" class="btn" style="background:transparent; color:#fff; border:2px solid rgba(255,255,255,0.6);">📚 Quản lý Khóa học</a>
+        </div>
+    </div>
+
+    <!-- Thông tin trạng thái đăng nhập -->
+    <div sec:authorize="isAuthenticated()" class="alert alert-success">
+        ✅ Xin chào <strong sec:authentication="name"></strong>!
+        Bạn đang đăng nhập với quyền: <strong sec:authentication="principal.authorities"></strong>
+    </div>
+    <div sec:authorize="!isAuthenticated()" class="alert alert-danger">
+        ⚠️ Bạn chưa đăng nhập. Một số chức năng sẽ bị hạn chế.
+    </div>
+
+    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:1rem; margin-bottom:2rem;">
+        <div class="card" style="text-align:center; padding:1.5rem;">
+            <div style="font-size:2.5rem;">👨‍🎓</div>
+            <div style="font-size:2rem; font-weight:800; color:var(--primary);" th:text="${totalStudents}">0</div>
+            <div style="color:var(--text-muted); font-size:0.9rem;">Sinh viên</div>
+        </div>
+        <div class="card" style="text-align:center; padding:1.5rem;">
+            <div style="font-size:2.5rem;">📚</div>
+            <div style="font-size:2rem; font-weight:800; color:var(--primary);" th:text="${totalCourses}">0</div>
+            <div style="color:var(--text-muted); font-size:0.9rem;">Khóa học</div>
+        </div>
+        <div class="card" style="text-align:center; padding:1.5rem;">
+            <div style="font-size:2.5rem;">🔐</div>
+            <div style="font-size:2rem; font-weight:800; color:var(--success);">Security</div>
+            <div style="color:var(--text-muted); font-size:0.9rem;">Spring Security 6.x</div>
+        </div>
+        <div class="card" style="text-align:center; padding:1.5rem;">
+            <div style="font-size:2.5rem;">🗄️</div>
+            <div style="font-size:2rem; font-weight:800; color:var(--info);">JPA</div>
+            <div style="color:var(--text-muted); font-size:0.9rem;">User lưu trong CSDL</div>
+        </div>
+    </div>
+    <div class="card">
+        <h3>📋 Thông tin Lab 14</h3>
+        <table>
+            <tr><td style="font-weight:600; width:200px;">Sinh viên</td><td>Nguyễn Văn Hùng — MSV: 20230752 — DCCNTT 14.2</td></tr>
+            <tr><td style="font-weight:600;">Công nghệ</td><td>Spring Boot 3.3.2, Spring Security 6.x, Thymeleaf Security Extras, Spring Data JPA, BCryptPasswordEncoder</td></tr>
+            <tr><td style="font-weight:600;">Tài khoản ADMIN</td><td><code>admin / 123456</code> hoặc <code>hung / 123456</code></td></tr>
+            <tr><td style="font-weight:600;">Tài khoản USER</td><td><code>user / 123456</code></td></tr>
+            <tr><td style="font-weight:600;">Phân quyền</td><td>ADMIN: Xem, Thêm, Sửa, Xóa SV + Quản lý Khóa học | USER: Chỉ xem danh sách SV</td></tr>
+        </table>
+    </div>
+</div>
+<footer class="footer"><p>Lab 14 — Spring Security © 2025 | Nguyễn Văn Hùng — 20230752 | DCCNTT 14.2 — EAUT</p></footer>
+</body>
+</html>

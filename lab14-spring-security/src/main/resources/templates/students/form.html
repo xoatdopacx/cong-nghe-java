@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${isEdit ? 'Sửa Sinh viên' : 'Thêm Sinh viên'} + ' - Lab 14'">Form</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<nav class="navbar">
+    <a class="navbar-brand" th:href="@{/}">🔐 Lab 14 - Spring Security</a>
+    <ul class="navbar-nav">
+        <li><a th:href="@{/}">🏠 Trang chủ</a></li>
+        <li><a th:href="@{/students}">👨‍🎓 Sinh viên</a></li>
+        <li sec:authorize="hasRole('ADMIN')"><a th:href="@{/courses}">📚 Khóa học</a></li>
+        <li sec:authorize="isAuthenticated()">
+            <form th:action="@{/logout}" method="post" style="display:inline;">
+                <button type="submit" style="background:transparent;border:none;color:#fff;cursor:pointer;font-size:0.95rem;">🚪 Đăng xuất (<span sec:authentication="name"></span>)</button>
+            </form>
+        </li>
+    </ul>
+</nav>
+<div class="container" style="max-width:800px;">
+    <div class="page-header">
+        <div>
+            <h1 th:text="${isEdit ? '✏️ Chỉnh sửa Sinh viên' : '➕ Thêm Sinh viên mới'}"></h1>
+            <p>Chức năng này yêu cầu quyền <strong>ADMIN</strong></p>
+        </div>
+        <a th:href="@{/students}" class="btn btn-secondary">← Quay lại</a>
+    </div>
+    <div class="card">
+        <form th:action="@{/students/save}" th:object="${student}" method="post">
+            <input type="hidden" th:field="*{id}">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="studentCode">Mã sinh viên <span class="required">*</span></label>
+                    <input type="text" id="studentCode" th:field="*{studentCode}" class="form-control" th:classappend="${#fields.hasErrors('studentCode')} ? 'is-invalid'">
+                    <div class="error-feedback" th:if="${#fields.hasErrors('studentCode')}" th:errors="*{studentCode}"></div>
+                </div>
+                <div class="form-group">
+                    <label for="fullName">Họ và tên <span class="required">*</span></label>
+                    <input type="text" id="fullName" th:field="*{fullName}" class="form-control" th:classappend="${#fields.hasErrors('fullName')} ? 'is-invalid'">
+                    <div class="error-feedback" th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}"></div>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="email">Email <span class="required">*</span></label>
+                    <input type="email" id="email" th:field="*{email}" class="form-control" th:classappend="${#fields.hasErrors('email')} ? 'is-invalid'">
+                    <div class="error-feedback" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+                </div>
+                <div class="form-group">
+                    <label for="className">Lớp <span class="required">*</span></label>
+                    <input type="text" id="className" th:field="*{className}" class="form-control" th:classappend="${#fields.hasErrors('className')} ? 'is-invalid'">
+                    <div class="error-feedback" th:if="${#fields.hasErrors('className')}" th:errors="*{className}"></div>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="phoneNumber">SĐT</label>
+                    <input type="text" id="phoneNumber" th:field="*{phoneNumber}" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="address">Địa chỉ</label>
+                    <input type="text" id="address" th:field="*{address}" class="form-control">
+                </div>
+            </div>
+            <div style="margin-top:1.5rem; display:flex; gap:0.75rem;">
+                <button type="submit" class="btn btn-success" th:text="${isEdit ? '💾 Cập nhật' : '➕ Lưu'}"></button>
+                <a th:href="@{/students}" class="btn btn-secondary">Hủy</a>
+            </div>
+        </form>
+    </div>
+</div>
+<footer class="footer"><p>Lab 14 — Spring Security © 2025 | Nguyễn Văn Hùng — 20230752</p></footer>
+</body>
+</html>
