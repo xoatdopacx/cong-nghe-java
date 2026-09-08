@@ -30,7 +30,8 @@ cong-nghe-java/
 │   └── lab11-springboot-thymeleaf/  # Lab 11 – Spring Boot 3.3, Spring MVC, Thymeleaf Template Engine
 ├── Chuong12-SpringMVCStudent/
 │   └── lab12-spring-mvc-student/    # Lab 12 – Spring MVC, Thymeleaf Form, @ModelAttribute, Validation, CRUD
-└── Chuong13-SpringDataJPA/          # Lab 13 – Spring Data JPA, Hibernate ORM, H2/MySQL, Repository, Service, CRUD
+├── Chuong13-SpringDataJPA/          # Lab 13 – Spring Data JPA, Hibernate ORM, H2/MySQL, Repository, Service, CRUD
+└── Chuong14-SpringSecurity/         # Lab 14 – Spring Security, Login/Logout, RBAC, Thymeleaf Security, DB Users
 ```
 
 ---
@@ -381,6 +382,34 @@ mvn clean package cargo:run
 | 8 | Entity Course | `entity/Course.java` | Ánh xạ bảng `courses` gồm mã môn, tên môn học, số tín chỉ (`@Min`, `@Max`) |
 | 9 | CRUD Khóa học | `CourseRepository`, `CourseService`, `CourseController` | Xây dựng trọn vẹn CRUD và giao diện quản lý khóa học / môn học |
 | 10 | Chuyển sang MySQL | `application-mysql.properties` | Cấu hình kết nối MySQL Server (`lab13_eaut`), khởi tạo bảng và thực nghiệm truy vấn |
+
+---
+
+## 🔒 Lab 14 – Bảo mật ứng dụng với Spring Security
+
+| Mục | Chi tiết |
+|-----|----------|
+| Công nghệ | Spring Boot 3.3.2, Spring Security 6.3, Thymeleaf Extras Springsecurity6, Spring Data JPA, H2, BCrypt, Maven, JDK 21 |
+| Package | `vn.edu.eaut.lab14` |
+| Web Server | Embedded Apache Tomcat 10.1 (Port 8080) |
+| Build & Run | `cd Chuong14-SpringSecurity && mvn spring-boot:run` |
+| URL Ứng dụng | `http://localhost:8080/` (Đăng nhập: `/login`, Quản lý SV: `/students`, Khóa học: `/courses`) |
+| Tài khoản mẫu | `admin/123456` (ROLE_ADMIN), `user/123456` (ROLE_USER), `hung/123456` (ROLE_ADMIN) |
+
+**Tổng hợp 10 bài tập Spring Security:**
+
+| Bài | Tên chức năng | Thành phần kỹ thuật | Mô tả thực hiện |
+|---|---|---|---|
+| 1 | Thêm dependency Security | `pom.xml` | Khai báo `spring-boot-starter-security`, `thymeleaf-extras-springsecurity6` |
+| 2 | Cấu hình SecurityFilterChain | `config/SecurityConfig.java` | `@EnableWebSecurity`, cấu hình permitAll, authenticated, CSRF |
+| 3 | Phân quyền URL | `SecurityConfig.java` | Phân quyền URL: permitAll (`/`, `/about`), hasRole("ADMIN") (`/courses/**`), hasAnyRole (`/students/**`) |
+| 4 | Form đăng nhập tùy biến | `auth/login.html`, `AuthController` | Giao diện login đẹp mắt, hỗ trợ hiển thị lỗi khi sai pass và thông báo đăng xuất |
+| 5 | Ẩn/hiện chức năng theo Role | `templates/students/list.html` | `sec:authorize="hasRole('ADMIN')"` ẩn nút Thêm/Sửa/Xóa với user thường |
+| 6 | URL /courses chỉ cho ADMIN | `CourseController.java` | Chặn truy cập trang khóa học đối với người dùng không có vai trò ADMIN |
+| 7 | Trang lỗi 403 Forbidden | `templates/error/403.html` | `accessDeniedPage("/error/403")`, giao diện thông báo từ chối truy cập |
+| 8 | Menu navbar theo vai trò | `templates/index.html` | Hiển thị tên đăng nhập, vai trò (`sec:authentication`), ẩn/hiện mục menu theo role |
+| 9 | Bảo vệ xóa sinh viên | `SecurityConfig.java`, `list.html` | Bảo vệ 2 lớp: ẩn nút Xóa trên UI và chặn URL `/students/delete/**` |
+| 10 | User lưu trong CSDL (BCrypt) | `AppUser`, `AppUserDetailsService` | Triển khai `UserDetailsService`, nạp tài khoản từ bảng `app_users`, mã hóa BCrypt |
 
 ---
 
