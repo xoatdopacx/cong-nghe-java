@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Đăng nhập - Lab 15</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div class="login-wrapper">
+        <div class="login-card">
+            <h2>🔑 Đăng nhập hệ thống</h2>
+            <p class="subtitle">Lab 15 - Hệ thống Quản lý Sinh viên & Đăng ký Học phần</p>
+
+            <div th:if="${param.error}" class="alert alert-danger">⚠️ Sai tên đăng nhập hoặc mật khẩu!</div>
+            <div th:if="${param.logout}" class="alert alert-success">✅ Đăng xuất thành công!</div>
+
+            <form th:action="@{/login}" method="post">
+                <div class="form-group">
+                    <label for="username">Tên đăng nhập</label>
+                    <input type="text" id="username" name="username" class="form-control"
+                           placeholder="Nhập tên đăng nhập..." required autofocus>
+                </div>
+                <div class="form-group">
+                    <label for="password">Mật khẩu</label>
+                    <input type="password" id="password" name="password" class="form-control"
+                           placeholder="Nhập mật khẩu..." required>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center; padding:0.8rem;">
+                    🔓 Đăng nhập
+                </button>
+            </form>
+
+            <div style="margin-top:1.5rem; padding:1rem; background:#f8fafc; border-radius:8px; font-size:0.85rem;">
+                <strong>Tài khoản thử nghiệm:</strong><br>
+                👑 admin / 123456 (ADMIN — toàn quyền)<br>
+                👤 user / 123456 (USER — chỉ xem)<br>
+                🎓 hung / 123456 (ADMIN — toàn quyền)
+            </div>
+        </div>
+    </div>
+</body>
+</html>

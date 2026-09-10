@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Môn học đã đăng ký - Lab 15</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <nav class="navbar">
+        <a class="navbar-brand" href="/">🎓 EAUT - Hệ thống Quản lý</a>
+        <ul class="navbar-nav">
+            <li><a th:href="@{/}">🏠 Trang chủ</a></li>
+            <li><a th:href="@{/students}" class="active">👨‍🎓 Sinh viên</a></li>
+            <li><a th:href="@{/courses}">📚 Khóa học</a></li>
+            <li><a th:href="@{/enrollments}">📝 Đăng ký HP</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <div class="page-header">
+            <div>
+                <h1>📋 Danh sách môn học đã đăng ký</h1>
+                <p>Sinh viên: <strong th:text="${student.fullName}"></strong>
+                   (<span class="badge badge-primary" th:text="${student.studentCode}"></span>)</p>
+            </div>
+            <a th:href="@{/students}" class="btn btn-secondary">↩️ Quay lại DS Sinh viên</a>
+        </div>
+
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Mã môn học</th>
+                        <th>Tên môn học</th>
+                        <th>Số tín chỉ</th>
+                        <th>Ngày đăng ký</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="e, stat : ${enrollments}">
+                        <td th:text="${stat.index + 1}"></td>
+                        <td><span class="badge badge-info" th:text="${e.course.courseCode}"></span></td>
+                        <td th:text="${e.course.courseName}"></td>
+                        <td><span class="badge badge-success" th:text="${e.course.credits + ' TC'}"></span></td>
+                        <td th:text="${e.enrollDate}"></td>
+                    </tr>
+                    <tr th:if="${#lists.isEmpty(enrollments)}">
+                        <td colspan="5" class="empty-state">
+                            <div class="emoji">📭</div>
+                            <p>Sinh viên chưa đăng ký môn học nào</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <footer class="footer">© 2026 Nguyễn Văn Hùng - 20230752 | EAUT | Lab 15</footer>
+</body>
+</html>

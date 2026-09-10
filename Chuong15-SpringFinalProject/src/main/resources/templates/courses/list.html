@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Danh sách Khóa học - Lab 15</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <nav class="navbar">
+        <a class="navbar-brand" href="/">🎓 EAUT - Hệ thống Quản lý</a>
+        <ul class="navbar-nav">
+            <li><a th:href="@{/}">🏠 Trang chủ</a></li>
+            <li><a th:href="@{/students}">👨‍🎓 Sinh viên</a></li>
+            <li><a th:href="@{/courses}" class="active">📚 Khóa học</a></li>
+            <li><a th:href="@{/enrollments}">📝 Đăng ký HP</a></li>
+            <li><a th:href="@{/dashboard}">📊 Dashboard</a></li>
+        </ul>
+        <div class="navbar-right">
+            <span class="navbar-user">👤 <strong sec:authentication="name">User</strong></span>
+            <form th:action="@{/logout}" method="post" style="display:inline">
+                <button type="submit" class="btn btn-sm btn-danger">🚪 Đăng xuất</button>
+            </form>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="page-header">
+            <div>
+                <h1>📚 Quản lý Khóa học</h1>
+                <p>Danh sách khóa học / môn học trong hệ thống</p>
+            </div>
+            <div class="btn-group" sec:authorize="hasRole('ADMIN')">
+                <a th:href="@{/courses/create}" class="btn btn-primary">➕ Thêm Khóa học</a>
+            </div>
+        </div>
+
+        <div th:if="${success}" class="alert alert-success">✅ <span th:text="${success}"></span></div>
+
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Mã môn học</th>
+                        <th>Tên môn học</th>
+                        <th>Số tín chỉ</th>
+                        <th sec:authorize="hasRole('ADMIN')">Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="course, stat : ${courses}">
+                        <td th:text="${stat.index + 1}"></td>
+                        <td><span class="badge badge-primary" th:text="${course.courseCode}"></span></td>
+                        <td th:text="${course.courseName}"></td>
+                        <td><span class="badge badge-success" th:text="${course.credits + ' TC'}"></span></td>
+                        <td sec:authorize="hasRole('ADMIN')">
+                            <div class="btn-group">
+                                <a th:href="@{/courses/edit/{id}(id=${course.id})}" class="btn btn-sm btn-warning">✏️ Sửa</a>
+                                <a th:href="@{/courses/delete/{id}(id=${course.id})}" class="btn btn-sm btn-danger"
+                                   onclick="return confirm('Bạn có chắc chắn muốn xóa?')">🗑️ Xóa</a>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr th:if="${#lists.isEmpty(courses)}">
+                        <td colspan="5" class="empty-state">
+                            <div class="emoji">📭</div>
+                            <p>Chưa có khóa học nào</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <footer class="footer">© 2026 Nguyễn Văn Hùng - 20230752 | EAUT | Lab 15</footer>
+</body>
+</html>

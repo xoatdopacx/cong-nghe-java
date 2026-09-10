@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Đăng ký Học phần mới - Lab 15</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <nav class="navbar">
+        <a class="navbar-brand" href="/">🎓 EAUT - Hệ thống Quản lý</a>
+        <ul class="navbar-nav">
+            <li><a th:href="@{/}">🏠 Trang chủ</a></li>
+            <li><a th:href="@{/students}">👨‍🎓 Sinh viên</a></li>
+            <li><a th:href="@{/courses}">📚 Khóa học</a></li>
+            <li><a th:href="@{/enrollments}" class="active">📝 Đăng ký HP</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <div class="page-header">
+            <h1>📝 Đăng ký Học phần mới</h1>
+        </div>
+
+        <div class="card">
+            <h3>📋 Chọn sinh viên và môn học</h3>
+            <form th:action="@{/enrollments/save}" method="post">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Chọn Sinh viên <span class="required">*</span></label>
+                        <select name="studentId" class="form-control" required>
+                            <option value="">-- Chọn sinh viên --</option>
+                            <option th:each="s : ${students}" th:value="${s.id}"
+                                    th:text="${s.studentCode + ' - ' + s.fullName + ' (' + s.className + ')'}"></option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Chọn Môn học <span class="required">*</span></label>
+                        <select name="courseId" class="form-control" required>
+                            <option value="">-- Chọn môn học --</option>
+                            <option th:each="c : ${courses}" th:value="${c.id}"
+                                    th:text="${c.courseCode + ' - ' + c.courseName + ' (' + c.credits + ' TC)'}"></option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="btn-group" style="margin-top:1rem;">
+                    <button type="submit" class="btn btn-success">✅ Đăng ký</button>
+                    <a th:href="@{/enrollments}" class="btn btn-secondary">↩️ Quay lại</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <footer class="footer">© 2026 Nguyễn Văn Hùng - 20230752 | EAUT | Lab 15</footer>
+</body>
+</html>

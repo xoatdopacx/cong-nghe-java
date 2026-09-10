@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${course.id != null ? 'Sửa Khóa học' : 'Thêm Khóa học'} + ' - Lab 15'">Form Khóa học</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <nav class="navbar">
+        <a class="navbar-brand" href="/">🎓 EAUT - Hệ thống Quản lý</a>
+        <ul class="navbar-nav">
+            <li><a th:href="@{/}">🏠 Trang chủ</a></li>
+            <li><a th:href="@{/students}">👨‍🎓 Sinh viên</a></li>
+            <li><a th:href="@{/courses}" class="active">📚 Khóa học</a></li>
+            <li><a th:href="@{/enrollments}">📝 Đăng ký HP</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <div class="page-header">
+            <h1 th:text="${course.id != null ? '✏️ Sửa Khóa học' : '➕ Thêm Khóa học mới'}"></h1>
+        </div>
+
+        <div class="card">
+            <form th:action="@{/courses/save}" th:object="${course}" method="post">
+                <input type="hidden" th:field="*{id}">
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Mã môn học <span class="required">*</span></label>
+                        <input type="text" th:field="*{courseCode}" class="form-control"
+                               th:classappend="${#fields.hasErrors('courseCode')} ? 'is-invalid'"
+                               placeholder="VD: IT3250">
+                        <div th:if="${#fields.hasErrors('courseCode')}" class="error-feedback">
+                            ⚠️ <span th:errors="*{courseCode}"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Tên môn học <span class="required">*</span></label>
+                        <input type="text" th:field="*{courseName}" class="form-control"
+                               th:classappend="${#fields.hasErrors('courseName')} ? 'is-invalid'"
+                               placeholder="VD: Trí tuệ nhân tạo">
+                        <div th:if="${#fields.hasErrors('courseName')}" class="error-feedback">
+                            ⚠️ <span th:errors="*{courseName}"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Số tín chỉ <span class="required">*</span></label>
+                    <input type="number" th:field="*{credits}" class="form-control" min="1" max="10"
+                           th:classappend="${#fields.hasErrors('credits')} ? 'is-invalid'"
+                           placeholder="VD: 3" style="max-width:200px;">
+                    <div th:if="${#fields.hasErrors('credits')}" class="error-feedback">
+                        ⚠️ <span th:errors="*{credits}"></span>
+                    </div>
+                </div>
+
+                <div class="btn-group" style="margin-top:1rem;">
+                    <button type="submit" class="btn btn-success">💾 Lưu</button>
+                    <a th:href="@{/courses}" class="btn btn-secondary">↩️ Quay lại</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <footer class="footer">© 2026 Nguyễn Văn Hùng - 20230752 | EAUT | Lab 15</footer>
+</body>
+</html>

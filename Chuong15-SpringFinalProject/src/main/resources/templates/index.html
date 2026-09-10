@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab 15 - Hệ thống Quản lý Sinh viên & Đăng ký Học phần</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <a class="navbar-brand" href="/">🎓 EAUT - Hệ thống Quản lý</a>
+        <ul class="navbar-nav">
+            <li><a th:href="@{/}" class="active">🏠 Trang chủ</a></li>
+            <li sec:authorize="isAuthenticated()"><a th:href="@{/students}">👨‍🎓 Sinh viên</a></li>
+            <li sec:authorize="isAuthenticated()"><a th:href="@{/courses}">📚 Khóa học</a></li>
+            <li sec:authorize="isAuthenticated()"><a th:href="@{/enrollments}">📝 Đăng ký HP</a></li>
+            <li sec:authorize="isAuthenticated()"><a th:href="@{/dashboard}">📊 Dashboard</a></li>
+        </ul>
+        <div class="navbar-right">
+            <span sec:authorize="isAuthenticated()" class="navbar-user">
+                👤 <strong sec:authentication="name">User</strong>
+                (<span sec:authentication="principal.authorities">ROLE</span>)
+            </span>
+            <span sec:authorize="isAuthenticated()">
+                <form th:action="@{/logout}" method="post" style="display:inline">
+                    <button type="submit" class="btn btn-sm btn-danger">🚪 Đăng xuất</button>
+                </form>
+            </span>
+            <span sec:authorize="!isAuthenticated()">
+                <a th:href="@{/login}" class="btn btn-sm btn-primary">🔑 Đăng nhập</a>
+            </span>
+        </div>
+    </nav>
+
+    <div class="container">
+        <!-- Hero Section -->
+        <div class="hero">
+            <h1>🎓 Hệ thống Quản lý Sinh viên & Đăng ký Học phần</h1>
+            <p>Ứng dụng tổng hợp Spring Boot + Spring MVC + Thymeleaf + Spring Data JPA + Spring Security</p>
+            <div class="hero-actions" sec:authorize="isAuthenticated()">
+                <a th:href="@{/students}" class="btn btn-primary">👨‍🎓 Quản lý Sinh viên</a>
+                <a th:href="@{/courses}" class="btn btn-success">📚 Quản lý Khóa học</a>
+                <a th:href="@{/enrollments}" class="btn btn-info">📝 Đăng ký Học phần</a>
+                <a th:href="@{/dashboard}" class="btn btn-warning">📊 Dashboard</a>
+            </div>
+            <div class="hero-actions" sec:authorize="!isAuthenticated()">
+                <a th:href="@{/login}" class="btn btn-primary">🔑 Đăng nhập để bắt đầu</a>
+            </div>
+        </div>
+
+        <!-- Stats -->
+        <div class="stats-grid" sec:authorize="isAuthenticated()">
+            <div class="stat-card">
+                <div class="stat-icon blue">👨‍🎓</div>
+                <div class="stat-info">
+                    <div class="stat-value" th:text="${totalStudents}">0</div>
+                    <div class="stat-label">Sinh viên</div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon green">📚</div>
+                <div class="stat-info">
+                    <div class="stat-value" th:text="${totalCourses}">0</div>
+                    <div class="stat-label">Khóa học</div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon purple">📝</div>
+                <div class="stat-info">
+                    <div class="stat-value" th:text="${totalEnrollments}">0</div>
+                    <div class="stat-label">Lượt đăng ký</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        © 2026 Nguyễn Văn Hùng - 20230752 - DCCNTT 14.2 | Đại học Công nghệ Đông Á (EAUT) | Lab 15 - Spring Final Project
+    </footer>
+</body>
+</html>

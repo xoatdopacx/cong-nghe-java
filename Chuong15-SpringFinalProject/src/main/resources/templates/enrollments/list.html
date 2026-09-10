@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Đăng ký Học phần - Lab 15</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <nav class="navbar">
+        <a class="navbar-brand" href="/">🎓 EAUT - Hệ thống Quản lý</a>
+        <ul class="navbar-nav">
+            <li><a th:href="@{/}">🏠 Trang chủ</a></li>
+            <li><a th:href="@{/students}">👨‍🎓 Sinh viên</a></li>
+            <li><a th:href="@{/courses}">📚 Khóa học</a></li>
+            <li><a th:href="@{/enrollments}" class="active">📝 Đăng ký HP</a></li>
+            <li><a th:href="@{/dashboard}">📊 Dashboard</a></li>
+        </ul>
+        <div class="navbar-right">
+            <span class="navbar-user">👤 <strong sec:authentication="name">User</strong></span>
+            <form th:action="@{/logout}" method="post" style="display:inline">
+                <button type="submit" class="btn btn-sm btn-danger">🚪 Đăng xuất</button>
+            </form>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="page-header">
+            <div>
+                <h1>📝 Quản lý Đăng ký Học phần</h1>
+                <p>Danh sách đăng ký học phần của sinh viên</p>
+            </div>
+            <a th:href="@{/enrollments/create}" class="btn btn-primary">➕ Đăng ký mới</a>
+        </div>
+
+        <div th:if="${success}" class="alert alert-success">✅ <span th:text="${success}"></span></div>
+        <div th:if="${error}" class="alert alert-danger">⚠️ <span th:text="${error}"></span></div>
+
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Sinh viên</th>
+                        <th>Mã SV</th>
+                        <th>Môn học</th>
+                        <th>Mã MH</th>
+                        <th>Ngày đăng ký</th>
+                        <th sec:authorize="hasRole('ADMIN')">Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="e, stat : ${enrollments}">
+                        <td th:text="${stat.index + 1}"></td>
+                        <td th:text="${e.student.fullName}"></td>
+                        <td><span class="badge badge-primary" th:text="${e.student.studentCode}"></span></td>
+                        <td th:text="${e.course.courseName}"></td>
+                        <td><span class="badge badge-info" th:text="${e.course.courseCode}"></span></td>
+                        <td th:text="${e.enrollDate}"></td>
+                        <td sec:authorize="hasRole('ADMIN')">
+                            <a th:href="@{/enrollments/cancel/{id}(id=${e.id})}" class="btn btn-sm btn-danger"
+                               onclick="return confirm('Bạn có chắc chắn muốn hủy đăng ký?')">❌ Hủy</a>
+                        </td>
+                    </tr>
+                    <tr th:if="${#lists.isEmpty(enrollments)}">
+                        <td colspan="7" class="empty-state">
+                            <div class="emoji">📭</div>
+                            <p>Chưa có đăng ký học phần nào</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <footer class="footer">© 2026 Nguyễn Văn Hùng - 20230752 | EAUT | Lab 15</footer>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giới thiệu Hệ thống - Lab 15</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <nav class="navbar">
+        <a class="navbar-brand" href="/">🎓 EAUT - Hệ thống Quản lý</a>
+        <ul class="navbar-nav">
+            <li><a th:href="@{/}">🏠 Trang chủ</a></li>
+            <li sec:authorize="isAuthenticated()"><a th:href="@{/students}">👨‍🎓 Sinh viên</a></li>
+            <li sec:authorize="isAuthenticated()"><a th:href="@{/courses}">📚 Khóa học</a></li>
+            <li sec:authorize="isAuthenticated()"><a th:href="@{/enrollments}">📝 Đăng ký HP</a></li>
+            <li sec:authorize="isAuthenticated()"><a th:href="@{/dashboard}">📊 Dashboard</a></li>
+            <li><a th:href="@{/about}" class="active">ℹ️ Giới thiệu</a></li>
+        </ul>
+        <div class="navbar-right">
+            <span sec:authorize="isAuthenticated()" class="navbar-user">
+                👤 <strong sec:authentication="name">User</strong>
+            </span>
+            <span sec:authorize="isAuthenticated()">
+                <form th:action="@{/logout}" method="post" style="display:inline">
+                    <button type="submit" class="btn btn-sm btn-danger">🚪 Đăng xuất</button>
+                </form>
+            </span>
+            <span sec:authorize="!isAuthenticated()">
+                <a th:href="@{/login}" class="btn btn-sm btn-primary">🔑 Đăng nhập</a>
+            </span>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="page-header">
+            <div>
+                <h1>ℹ️ Giới thiệu Hệ thống & Kiến trúc Ứng dụng</h1>
+                <p>Bài tập tổng hợp Lab 15 - Phát triển ứng dụng hoàn chỉnh với Spring Framework</p>
+            </div>
+            <a th:href="@{/}" class="btn btn-secondary">↩️ Về trang chủ</a>
+        </div>
+
+        <div class="card">
+            <h3>👤 Thông tin Sinh viên thực hiện</h3>
+            <table style="width: 100%; border-collapse: collapse;">
+                <tr><td style="width: 200px; padding: 8px; font-weight: bold;">Họ và tên:</td><td>Nguyễn Văn Hùng</td></tr>
+                <tr><td style="padding: 8px; font-weight: bold;">Mã sinh viên:</td><td>20230752</td></tr>
+                <tr><td style="padding: 8px; font-weight: bold;">Lớp:</td><td>DCCNTT 14.2</td></tr>
+                <tr><td style="padding: 8px; font-weight: bold;">Học phần:</td><td>Công nghệ Java (IT3242)</td></tr>
+                <tr><td style="padding: 8px; font-weight: bold;">Trường:</td><td>Đại học Công nghệ Đông Á (EAUT)</td></tr>
+            </table>
+        </div>
+
+        <div class="card">
+            <h3>🏗️ Kiến trúc Đa tầng (Multi-tier Architecture)</h3>
+            <p>Hệ thống được thiết kế chuẩn theo mô hình 4 tầng tách biệt:</p>
+            <ol style="line-height: 1.8; margin-left: 1.5rem;">
+                <li><strong>Presentation Layer (View & Controller):</strong> Spring MVC tiếp nhận request, validate dữ liệu đầu vào với Bean Validation, trả về Thymeleaf views kết hợp Thymeleaf Security extras.</li>
+                <li><strong>Service Layer (Business Logic):</strong> Đảm nhận toàn bộ nghiệp vụ kiểm tra tính toàn vẹn (trùng mã sinh viên, trùng mã khóa học, kiểm tra sinh viên đã đăng ký môn học chưa).</li>
+                <li><strong>Data Access Layer (Repository):</strong> Sử dụng Spring Data JPA kế thừa JpaRepository, tự động sinh các truy vấn JPQL và SQL thao tác cơ sở dữ liệu.</li>
+                <li><strong>Entity Layer:</strong> Các thực thể JPA <code>Student</code>, <code>Course</code>, <code>Enrollment</code> và <code>AppUser</code> ánh xạ bảng CSDL với quan hệ <code>@ManyToOne</code>.</li>
+                <li><strong>Security Layer:</strong> Spring Security 6 với <code>DaoAuthenticationProvider</code>, mã hóa mật khẩu bằng BCrypt, bảo mật phân quyền Role-Based Access Control (RBAC).</li>
+            </ol>
+        </div>
+    </div>
+
+    <footer class="footer">
+        © 2026 Nguyễn Văn Hùng - 20230752 | EAUT | Lab 15 - Spring Final Project
+    </footer>
+</body>
+</html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard Thống kê - Lab 15</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <nav class="navbar">
+        <a class="navbar-brand" href="/">🎓 EAUT - Hệ thống Quản lý</a>
+        <ul class="navbar-nav">
+            <li><a th:href="@{/}">🏠 Trang chủ</a></li>
+            <li><a th:href="@{/students}">👨‍🎓 Sinh viên</a></li>
+            <li><a th:href="@{/courses}">📚 Khóa học</a></li>
+            <li><a th:href="@{/enrollments}">📝 Đăng ký HP</a></li>
+            <li><a th:href="@{/dashboard}" class="active">📊 Dashboard</a></li>
+        </ul>
+        <div class="navbar-right">
+            <span class="navbar-user">👤 <strong sec:authentication="name">User</strong></span>
+            <form th:action="@{/logout}" method="post" style="display:inline">
+                <button type="submit" class="btn btn-sm btn-danger">🚪 Đăng xuất</button>
+            </form>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="page-header">
+            <h1>📊 Dashboard Thống kê Hệ thống</h1>
+        </div>
+
+        <!-- Stats Cards -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon blue">👨‍🎓</div>
+                <div class="stat-info">
+                    <div class="stat-value" th:text="${totalStudents}">0</div>
+                    <div class="stat-label">Tổng số Sinh viên</div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon green">📚</div>
+                <div class="stat-info">
+                    <div class="stat-value" th:text="${totalCourses}">0</div>
+                    <div class="stat-label">Tổng số Khóa học</div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon purple">📝</div>
+                <div class="stat-info">
+                    <div class="stat-value" th:text="${totalEnrollments}">0</div>
+                    <div class="stat-label">Tổng số Lượt đăng ký</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bảng Sinh viên -->
+        <div class="card">
+            <h3>👨‍🎓 Danh sách Sinh viên</h3>
+            <div class="table-wrapper" style="border:none; box-shadow:none;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Mã SV</th>
+                            <th>Họ và tên</th>
+                            <th>Email</th>
+                            <th>Lớp</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="s, stat : ${students}">
+                            <td th:text="${stat.index + 1}"></td>
+                            <td><span class="badge badge-primary" th:text="${s.studentCode}"></span></td>
+                            <td th:text="${s.fullName}"></td>
+                            <td th:text="${s.email}"></td>
+                            <td><span class="badge badge-info" th:text="${s.className}"></span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Bảng Khóa học -->
+        <div class="card">
+            <h3>📚 Danh sách Khóa học</h3>
+            <div class="table-wrapper" style="border:none; box-shadow:none;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Mã MH</th>
+                            <th>Tên môn học</th>
+                            <th>Số TC</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="c, stat : ${courses}">
+                            <td th:text="${stat.index + 1}"></td>
+                            <td><span class="badge badge-primary" th:text="${c.courseCode}"></span></td>
+                            <td th:text="${c.courseName}"></td>
+                            <td><span class="badge badge-success" th:text="${c.credits + ' TC'}"></span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Bảng Đăng ký Học phần -->
+        <div class="card">
+            <h3>📝 Danh sách Đăng ký Học phần</h3>
+            <div class="table-wrapper" style="border:none; box-shadow:none;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Sinh viên</th>
+                            <th>Mã SV</th>
+                            <th>Môn học</th>
+                            <th>Ngày ĐK</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="e, stat : ${enrollments}">
+                            <td th:text="${stat.index + 1}"></td>
+                            <td th:text="${e.student.fullName}"></td>
+                            <td><span class="badge badge-primary" th:text="${e.student.studentCode}"></span></td>
+                            <td th:text="${e.course.courseName}"></td>
+                            <td th:text="${e.enrollDate}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">© 2026 Nguyễn Văn Hùng - 20230752 | EAUT | Lab 15</footer>
+</body>
+</html>

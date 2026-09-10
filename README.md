@@ -31,7 +31,8 @@ cong-nghe-java/
 ├── Chuong12-SpringMVCStudent/
 │   └── lab12-spring-mvc-student/    # Lab 12 – Spring MVC, Thymeleaf Form, @ModelAttribute, Validation, CRUD
 ├── Chuong13-SpringDataJPA/          # Lab 13 – Spring Data JPA, Hibernate ORM, H2/MySQL, Repository, Service, CRUD
-└── Chuong14-SpringSecurity/         # Lab 14 – Spring Security, Login/Logout, RBAC, Thymeleaf Security, DB Users
+├── Chuong14-SpringSecurity/         # Lab 14 – Spring Security, Login/Logout, RBAC, Thymeleaf Security, DB Users
+└── Chuong15-SpringFinalProject/     # Lab 15 – Bài tập tổng hợp: Quản lý SV & Đăng ký học phần (Spring Boot Full)
 ```
 
 ---
@@ -410,6 +411,34 @@ mvn clean package cargo:run
 | 8 | Menu navbar theo vai trò | `templates/index.html` | Hiển thị tên đăng nhập, vai trò (`sec:authentication`), ẩn/hiện mục menu theo role |
 | 9 | Bảo vệ xóa sinh viên | `SecurityConfig.java`, `list.html` | Bảo vệ 2 lớp: ẩn nút Xóa trên UI và chặn URL `/students/delete/**` |
 | 10 | User lưu trong CSDL (BCrypt) | `AppUser`, `AppUserDetailsService` | Triển khai `UserDetailsService`, nạp tài khoản từ bảng `app_users`, mã hóa BCrypt |
+
+---
+
+## 🏆 Lab 15 – Bài tập tổng hợp: Xây dựng ứng dụng hoàn chỉnh với Spring Framework
+
+| Mục | Chi tiết |
+|-----|----------|
+| Công nghệ | Spring Boot 3.3.2, Spring MVC, Spring Data JPA, Hibernate 6.5, Spring Security 6.3, Thymeleaf, H2, BCrypt, Maven, JDK 21 |
+| Package | `vn.edu.eaut.lab15` |
+| Web Server | Embedded Apache Tomcat 10.1 (Port 8080) |
+| Build & Run | `cd Chuong15-SpringFinalProject && mvn spring-boot:run` |
+| URL Ứng dụng | `http://localhost:8080/` (Đăng nhập: `/login`, Quản lý SV: `/students`, Khóa học: `/courses`, Đăng ký: `/enrollments`, Dashboard: `/dashboard`, Giới thiệu: `/about`) |
+| Tài khoản mẫu | `admin/123456` (ROLE_ADMIN), `hung/123456` (ROLE_ADMIN), `user/123456` (ROLE_USER) |
+
+**Tổng hợp 10 bài tập Lab 15:**
+
+| Bài | Tên bài tập | Thành phần kỹ thuật | Mô tả thực hiện |
+|---|---|---|---|
+| 1 | Entity Course | `entity/Course.java` | Quản lý môn học/khóa học với validation (`@NotBlank`, `@Min(1)`, `@Max(10)`) |
+| 2 | Entity Enrollment | `entity/Enrollment.java` | Thực thể đăng ký học phần thể hiện quan hệ Many-to-One với `Student` và `Course` |
+| 3 | Repository Đăng ký HP | `EnrollmentRepository.java` | `findByStudentId`, `existsByStudentIdAndCourseId` kiểm tra trùng lặp đăng ký |
+| 4 | Service Đăng ký HP | `EnrollmentService.java` | Nghiệp vụ đăng ký, kiểm tra tồn tại và trùng lặp, hủy đăng ký, thống kê count |
+| 5 | Controller Đăng ký HP | `EnrollmentController.java` | Form chọn SV và môn học (`/enrollments/create`), xử lý lưu (`/enrollments/save`) |
+| 6 | Trang danh sách Đăng ký | `enrollments/list.html` | Hiển thị bảng đăng ký học phần (SV, môn học, ngày đăng ký, nút hủy) |
+| 7 | Hủy đăng ký học phần | `EnrollmentController.cancel()` | Hủy đăng ký theo ID với confirm Javascript và phân quyền chỉ ADMIN |
+| 8 | Xem môn học theo SV | `students/enrollments.html` | Xem chi tiết các môn học đã đăng ký của 1 sinh viên (`/students/{id}/enrollments`) |
+| 9 | Dashboard thống kê | `templates/dashboard.html` | Thống kê tổng số sinh viên, môn học, đăng ký kèm 3 bảng dữ liệu chi tiết |
+| 10 | Giao diện & Phân quyền | `SecurityConfig`, `style.css`, 403 | Giao diện Inter hiện đại, phân quyền URL và UI (`sec:authorize`), trang lỗi 403 tùy biến |
 
 ---
 
