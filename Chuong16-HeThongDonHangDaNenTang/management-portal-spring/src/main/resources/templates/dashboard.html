@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | Management Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <th:block th:replace="~{fragments/styles :: css}"/>
+</head>
+<body>
+<div th:replace="~{fragments/sidebar :: sidebar('dashboard')}"></div>
+<div class="main">
+    <div class="topbar">
+        <h1>📊 Dashboard</h1>
+        <span class="muted-text">Lab 16 · Spring Boot · Port 8081</span>
+    </div>
+    <div class="content">
+        <div class="stat-grid">
+            <div class="stat-card clr-primary">
+                <div class="label">Tổng đơn hàng</div>
+                <div class="value" th:text="${totalOrders}">0</div>
+            </div>
+            <div class="stat-card clr-amber">
+                <div class="label">⏳ Chờ xử lý</div>
+                <div class="value" th:text="${pendingOrders}">0</div>
+            </div>
+            <div class="stat-card clr-blue">
+                <div class="label">⚙️ Đang xử lý</div>
+                <div class="value" th:text="${processingOrders}">0</div>
+            </div>
+            <div class="stat-card clr-purple">
+                <div class="label">🚚 Đang giao</div>
+                <div class="value" th:text="${shippingOrders}">0</div>
+            </div>
+            <div class="stat-card clr-green">
+                <div class="label">✅ Hoàn thành</div>
+                <div class="value" th:text="${completedOrders}">0</div>
+            </div>
+            <div class="stat-card clr-amber">
+                <div class="label">📦 Sản phẩm</div>
+                <div class="value" th:text="${totalProducts}">0</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header"><h3>🏗️ Kiến trúc hệ thống Lab 16</h3></div>
+            <div style="padding:1.5rem">
+                <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:1rem">
+                    <div class="arch-box arch-blue">
+                        <div style="font-size:1.5rem">🌐</div>
+                        <strong>Customer Portal</strong>
+                        <div class="arch-meta">Jakarta EE · Servlet/JSP</div>
+                        <div class="arch-meta">Port 8080 · Role: CUSTOMER</div>
+                    </div>
+                    <div class="arch-box arch-amber">
+                        <div style="font-size:1.5rem">🖥️</div>
+                        <strong>Warehouse Desktop</strong>
+                        <div class="arch-meta">Java Swing · JDBC</div>
+                        <div class="arch-meta">Desktop App · Role: WAREHOUSE</div>
+                    </div>
+                    <div class="arch-box arch-green">
+                        <div style="font-size:1.5rem">🏢</div>
+                        <strong>Management Portal</strong>
+                        <div class="arch-meta">Spring Boot (ứng dụng này)</div>
+                        <div class="arch-meta">Port 8081 · Role: MANAGER/ADMIN</div>
+                    </div>
+                </div>
+                <div class="info-box">
+                    ✅ Tất cả 3 ứng dụng dùng chung database <strong>java_integrated_lab</strong> · MySQL 9.5
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header"><h3>Thao tác nhanh</h3></div>
+            <div style="padding:1.5rem;display:flex;gap:1rem;flex-wrap:wrap">
+                <a href="/orders" class="btn btn-primary">📦 Quản lý đơn hàng</a>
+                <a href="/orders?status=PENDING" class="btn btn-outline">⏳ Xem đơn chờ xử lý</a>
+                <a href="/products" class="btn btn-outline">🛒 Quản lý sản phẩm</a>
+                <a href="/products/new" class="btn btn-outline">+ Thêm sản phẩm</a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"><title>Sản phẩm | Management Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <th:block th:replace="~{fragments/styles :: css}"/>
+</head>
+<body>
+<div th:replace="~{fragments/sidebar :: sidebar('products')}"></div>
+<div class="main">
+    <div class="topbar">
+        <h1>🛒 Quản lý sản phẩm</h1>
+        <a href="/products/new" class="btn btn-primary">+ Thêm sản phẩm</a>
+    </div>
+    <div class="content">
+        <div th:if="${successMsg}" class="alert alert-success" th:text="${successMsg}"></div>
+        <div th:if="${errorMsg}"   class="alert alert-danger"  th:text="${errorMsg}"></div>
+
+        <form th:action="@{/products}" method="get" style="display:flex;gap:.5rem;margin-bottom:1.5rem">
+            <input type="text" name="keyword" th:value="${keyword}"
+                   placeholder="Tìm theo tên hoặc mã sản phẩm..."
+                   class="form-control" style="max-width:320px">
+            <button type="submit" class="btn btn-primary">🔍 Tìm</button>
+            <a th:if="${keyword != null and !keyword.isBlank()}" href="/products" class="btn btn-outline">✕ Xóa bộ lọc</a>
+        </form>
+
+        <div class="card">
+            <div class="card-header">
+                <h3>Danh sách sản phẩm</h3>
+                <span class="muted-text" th:text="${#lists.size(products)} + ' sản phẩm'"></span>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Mã SP</th>
+                        <th>Tên sản phẩm</th>
+                        <th style="text-align:right">Giá bán</th>
+                        <th style="text-align:center">Tồn kho</th>
+                        <th>Trạng thái</th>
+                        <th style="width:140px"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:if="${#lists.isEmpty(products)}">
+                        <td colspan="6" style="text-align:center;padding:2rem;color:var(--muted)">
+                            Không tìm thấy sản phẩm nào
+                        </td>
+                    </tr>
+                    <tr th:each="p : ${products}">
+                        <td><code th:text="${p.code}">SP001</code></td>
+                        <td th:text="${p.name}">Tên SP</td>
+                        <td style="text-align:right"
+                            th:text="${#numbers.formatDecimal(p.price, 0, 'COMMA', 0, 'POINT') + ' ₫'}">0</td>
+                        <td style="text-align:center">
+                            <span th:style="${p.stock < 5} ? 'color:var(--danger);font-weight:600' : 'color:var(--success)'"
+                                  th:text="${p.stock}">0</span>
+                            <span th:if="${p.stock < 5}" style="font-size:.7rem;color:var(--danger)"> ⚠️</span>
+                        </td>
+                        <td>
+                            <span th:if="${p.active}"  class="badge badge-completed">Đang bán</span>
+                            <span th:unless="${p.active}" class="badge badge-cancelled">Ngừng bán</span>
+                        </td>
+                        <td style="display:flex;gap:.4rem">
+                            <a th:href="@{/products/{id}/edit(id=${p.id})}" class="btn btn-outline btn-sm">✏️ Sửa</a>
+                            <form th:action="@{/products/{id}/delete(id=${p.id})}" method="post"
+                                  onsubmit="return confirm('Xác nhận xóa sản phẩm này?')">
+                                <button type="submit" class="btn btn-danger btn-sm">🗑️</button>
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>

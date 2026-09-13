@@ -32,7 +32,8 @@ cong-nghe-java/
 │   └── lab12-spring-mvc-student/    # Lab 12 – Spring MVC, Thymeleaf Form, @ModelAttribute, Validation, CRUD
 ├── Chuong13-SpringDataJPA/          # Lab 13 – Spring Data JPA, Hibernate ORM, H2/MySQL, Repository, Service, CRUD
 ├── Chuong14-SpringSecurity/         # Lab 14 – Spring Security, Login/Logout, RBAC, Thymeleaf Security, DB Users
-└── Chuong15-SpringFinalProject/     # Lab 15 – Bài tập tổng hợp: Quản lý SV & Đăng ký học phần (Spring Boot Full)
+├── Chuong15-SpringFinalProject/     # Lab 15 – Bài tập tổng hợp: Quản lý SV & Đăng ký học phần (Spring Boot Full)
+└── Chuong16-HeThongDonHangDaNenTang/ # Lab 16 – Hệ thống xử lý đơn hàng đa nền tảng: Java Swing, Jakarta EE, Spring Boot, MySQL
 ```
 
 ---
@@ -439,6 +440,27 @@ mvn clean package cargo:run
 | 8 | Xem môn học theo SV | `students/enrollments.html` | Xem chi tiết các môn học đã đăng ký của 1 sinh viên (`/students/{id}/enrollments`) |
 | 9 | Dashboard thống kê | `templates/dashboard.html` | Thống kê tổng số sinh viên, môn học, đăng ký kèm 3 bảng dữ liệu chi tiết |
 | 10 | Giao diện & Phân quyền | `SecurityConfig`, `style.css`, 403 | Giao diện Inter hiện đại, phân quyền URL và UI (`sec:authorize`), trang lỗi 403 tùy biến |
+
+---
+
+## 🌐 Lab 16 – Hệ thống xử lý đơn hàng đa nền tảng (Java Swing – Jakarta EE – Spring Boot – MySQL)
+
+| Mục | Chi tiết |
+|-----|----------|
+| Kiến trúc | Hệ thống tích hợp 3 nền tảng Java sử dụng chung CSDL MySQL Server (`java_integrated_lab`) |
+| 1. Web Khách hàng | **Jakarta EE 10** (Servlet 6.0, JSP 3.1, JSTL, Embedded Tomcat 10.1 fat-jar, Cổng 8080) |
+| 2. Desktop Quản lý Kho | **Java SE 21 / Java Swing** (JDBC, BCrypt, SwingWorker, Optimistic Locking, Dark Theme) |
+| 3. Portal Quản trị | **Spring Boot 3.3.2** (Spring MVC, Spring Data JPA, Spring Security 6.3, Thymeleaf, Cổng 8081) |
+| Cơ sở dữ liệu | MySQL 8.4 Server (`users`, `products`, `orders`, `order_items`, `order_status_history`) |
+| Cơ chế kỹ thuật | Khóa lạc quan (`version`), Giao dịch ACID, Mã hóa BCrypt, Phân quyền RBAC, Audit History đa nền tảng |
+
+**Quy trình nghiệp vụ tích hợp khép kín (End-to-End Workflow):**
+
+| Giai đoạn | Nền tảng thực thi | Người dùng / Role | Thao tác và logic nghiệp vụ | Trạng thái đơn |
+|---|---|---|---|:---:|
+| **Giai đoạn 1** | **Customer Portal** (Jakarta EE - 8080) | `customer01` (CUSTOMER) | Khách hàng đăng nhập, chọn mua sản phẩm, tạo đơn hàng mới với ghi chú giao hàng. Hệ thống ghi log `order_status_history` nền tảng `JAKARTA_EE`. | `PENDING` |
+| **Giai đoạn 2** | **Warehouse Desktop** (Java Swing GUI) | `warehouse01` (WAREHOUSE) | Nhân viên kho nhận đơn `PENDING`, xác nhận chuyển sang `PROCESSING` (tự động kiểm tra và trừ số lượng tồn kho `products.stock`), sau đó đóng gói hoàn tất chuyển sang `READY`. Hệ thống ghi log nền tảng `JAVA_SWING`. | `PROCESSING` → `READY` |
+| **Giai đoạn 3** | **Management Portal** (Spring Boot - 8081) | `admin01` (ADMIN) | Ban quản lý giám sát Dashboard doanh thu, kiểm tra dòng thời gian kiểm toán đa nền tảng (Audit Timeline) và điều phối giao hàng cho đối tác vận chuyển. Ghi log nền tảng `SPRING_BOOT`. | `SHIPPING` |
 
 ---
 

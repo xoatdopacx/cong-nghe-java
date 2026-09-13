@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${product.id != null ? 'Chỉnh sửa SP #' + product.id : 'Thêm sản phẩm'} + ' | Management Portal'">Form SP</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <th:block th:replace="~{fragments/styles :: css}"/>
+</head>
+<body>
+<div th:replace="~{fragments/sidebar :: sidebar('products')}"></div>
+<div class="main">
+    <div class="topbar">
+        <h1 th:text="${product.id != null ? 'Chỉnh sửa sản phẩm #' + product.id : 'Thêm sản phẩm mới'}">Form</h1>
+        <a href="/products" class="btn btn-outline btn-sm">← Quay lại</a>
+    </div>
+    <div class="content">
+        <div style="max-width:560px">
+            <div class="card">
+                <div class="card-header">
+                    <h3 th:text="${product.id != null ? '✏️ Chỉnh sửa sản phẩm' : '➕ Thêm sản phẩm mới'}">Form</h3>
+                </div>
+                <div style="padding:1.5rem">
+                    <form th:action="@{/products/save}" method="post" th:object="${product}">
+                        <input type="hidden" th:field="*{id}">
+                        <input type="hidden" th:field="*{version}">
+
+                        <div class="form-group">
+                            <label for="pCode">Mã sản phẩm <span style="color:var(--danger)">*</span></label>
+                            <input type="text" id="pCode" th:field="*{code}"
+                                   class="form-control" placeholder="VD: SP008" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="pName">Tên sản phẩm <span style="color:var(--danger)">*</span></label>
+                            <input type="text" id="pName" th:field="*{name}"
+                                   class="form-control" placeholder="Tên sản phẩm" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="pPrice">Giá bán (VND) <span style="color:var(--danger)">*</span></label>
+                            <input type="number" id="pPrice" th:field="*{price}"
+                                   class="form-control" placeholder="VD: 500000" required min="0" step="1000">
+                        </div>
+                        <div class="form-group">
+                            <label for="pStock">Số lượng tồn kho <span style="color:var(--danger)">*</span></label>
+                            <input type="number" id="pStock" th:field="*{stock}"
+                                   class="form-control" placeholder="VD: 10" required min="0">
+                        </div>
+                        <div class="form-group">
+                            <label for="pActive">Trạng thái</label>
+                            <select id="pActive" th:field="*{active}" class="form-control">
+                                <option value="true">✅ Đang bán</option>
+                                <option value="false">❌ Ngừng bán</option>
+                            </select>
+                        </div>
+                        <div style="display:flex;gap:.75rem;margin-top:1.5rem">
+                            <button type="submit" class="btn btn-primary">💾 Lưu sản phẩm</button>
+                            <a href="/products" class="btn btn-outline">Hủy</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

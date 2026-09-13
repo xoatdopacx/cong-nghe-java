@@ -1,0 +1,22 @@
+<!-- ===== sidebar.html ===== -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<body>
+<div th:fragment="sidebar(activeMenu)" class="sidebar">
+    <div class="logo">🏢 Management</div>
+    <nav>
+        <a th:href="@{/}"         th:class="${activeMenu == 'dashboard'} ? 'active' : ''">📊 Dashboard</a>
+        <a th:href="@{/orders}"   th:class="${activeMenu == 'orders'}    ? 'active' : ''">📦 Đơn hàng</a>
+        <a th:href="@{/products}" th:class="${activeMenu == 'products'}  ? 'active' : ''">🛒 Sản phẩm</a>
+    </nav>
+    <div class="user-info">
+        <strong sec:authentication="name">User</strong>
+        <span sec:authorize="hasRole('ADMIN')" style="color:#f87171;font-size:.75rem">🔴 Quản trị</span>
+        <span sec:authorize="hasRole('MANAGER')" style="color:#818cf8;font-size:.75rem">🔵 Quản lý</span>
+        <form th:action="@{/logout}" method="post">
+            <button type="submit" class="logout-btn">🚪 Đăng xuất</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

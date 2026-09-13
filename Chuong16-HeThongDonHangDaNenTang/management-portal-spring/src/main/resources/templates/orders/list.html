@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8"><title>Đơn hàng | Management Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <th:block th:replace="~{fragments/styles :: css}"/>
+</head>
+<body>
+<div th:replace="~{fragments/sidebar :: sidebar('orders')}"></div>
+<div class="main">
+    <div class="topbar">
+        <h1>📦 Danh sách đơn hàng</h1>
+        <span class="muted-text" th:text="'Tổng: ' + ${ordersPage.totalElements} + ' đơn'"></span>
+    </div>
+    <div class="content">
+        <div th:if="${successMsg}" class="alert alert-success" th:text="${successMsg}"></div>
+        <div th:if="${errorMsg}"   class="alert alert-danger"  th:text="${errorMsg}"></div>
+
+        <div class="filter-bar">
+            <a th:href="@{/orders}"                     th:classappend="${currentStatus == ''}           ? ' active' : ''">Tất cả</a>
+            <a th:href="@{/orders(status='PENDING')}"   th:classappend="${currentStatus == 'PENDING'}    ? ' active' : ''">⏳ Chờ</a>
+            <a th:href="@{/orders(status='PROCESSING')}"th:classappend="${currentStatus == 'PROCESSING'} ? ' active' : ''">⚙️ Xử lý</a>
+            <a th:href="@{/orders(status='READY')}"     th:classappend="${currentStatus == 'READY'}      ? ' active' : ''">📦 Sẵn sàng</a>
+            <a th:href="@{/orders(status='SHIPPING')}"  th:classappend="${currentStatus == 'SHIPPING'}   ? ' active' : ''">🚚 Giao hàng</a>
+            <a th:href="@{/orders(status='COMPLETED')}" th:classappend="${currentStatus == 'COMPLETED'}  ? ' active' : ''">✅ Hoàn thành</a>
+            <a th:href="@{/orders(status='CANCELLED')}" th:classappend="${currentStatus == 'CANCELLED'}  ? ' active' : ''">❌ Đã hủy</a>
+        </div>
+
+        <div class="card">
+            <table>
+                <thead>
+                    <tr>
+                        <th>#ID</th>
+                        <th>Khách hàng</th>
+                        <th>Thời gian đặt</th>
+                        <th>Tổng tiền</th>
+                        <th>Trạng thái</th>
+                        <th>Nền tảng</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:if="${#lists.isEmpty(orders)}">
+                        <td colspan="7" style="text-align:center;padding:2rem;color:var(--muted)">
+                            Không có đơn hàng nào
+                        </td>
+                    </tr>
+                    <tr th:each="order : ${orders}">
+                        <td><strong th:text="'#' + ${order.id}"></strong></td>
+                        <td th:text="${order.customer != null ? order.customer.fullName : 'N/A'}">--</td>
+                        <td class="muted-text"
+                            th:text="${#temporals.format(order.createdAt, 'dd/MM/yyyy HH:mm')}">--</td>
+                        <td th:text="${#numbers.formatDecimal(order.totalAmount, 0, 'COMMA', 0, 'POINT') + ' ₫'}">0</td>
+                        <td>
+                            <span th:class="'badge badge-' + ${order.status.name().toLowerCase()}"
+                                  th:text="${order.status}"></span>
+                        </td>
+                        <td>
+                            <!-- placeholder nền tảng - lấy từ history nếu có -->
+                            <span class="muted-text" style="font-size:.75rem">—</span>
+                        </td>
+                        <td>
+                            <a th:href="@{/orders/{id}(id=${order.id})}" class="btn btn-outline btn-sm">Chi tiết →</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="pagination" th:if="${ordersPage.totalPages > 1}">
+            <a th:if="${!ordersPage.first}"
+               th:href="@{/orders(status=${currentStatus}, page=${ordersPage.number - 1})}">‹ Trước</a>
+            <th:block th:each="i : ${#numbers.sequence(0, ordersPage.totalPages - 1)}">
+                <span th:if="${i == ordersPage.number}" class="pg-cur" th:text="${i + 1}"></span>
+                <a th:unless="${i == ordersPage.number}"
+                   th:href="@{/orders(status=${currentStatus}, page=${i})}"
+                   th:text="${i + 1}"></a>
+            </th:block>
+            <a th:if="${!ordersPage.last}"
+               th:href="@{/orders(status=${currentStatus}, page=${ordersPage.number + 1})}">Sau ›</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

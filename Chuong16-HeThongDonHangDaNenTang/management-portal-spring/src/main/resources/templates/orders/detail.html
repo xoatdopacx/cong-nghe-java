@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="'Đơn hàng #' + ${order.id} + ' | Management Portal'">Chi tiết đơn</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <th:block th:replace="~{fragments/styles :: css}"/>
+</head>
+<body>
+<div th:replace="~{fragments/sidebar :: sidebar('orders')}"></div>
+<div class="main">
+    <div class="topbar">
+        <h1 th:text="'Đơn hàng #' + ${order.id}">Chi tiết đơn</h1>
+        <a href="/orders" class="btn btn-outline btn-sm">← Quay lại</a>
+    </div>
+    <div class="content">
+        <div th:if="${successMsg}" class="alert alert-success" th:text="${successMsg}"></div>
+        <div th:if="${errorMsg}"   class="alert alert-danger"  th:text="${errorMsg}"></div>
+
+        <div class="detail-grid">
+            <!-- Cột trái: thông tin đơn + sản phẩm -->
+            <div>
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Thông tin đơn hàng</h3>
+                        <span th:class="'badge badge-' + ${order.status.name().toLowerCase()}"
+                              th:text="${order.status}"></span>
+                    </div>
+                    <div style="padding:1.25rem">
+                        <table>
+                            <tr>
+                                <th style="width:140px">Khách hàng</th>
+                                <td th:text="${order.customer != null ? order.customer.fullName : 'N/A'}">--</td>
+                            </tr>
+                            <tr>
+                                <th>Username</th>
+                                <td th:text="${order.customer != null ? order.customer.username : '—'}">--</td>
+                            </tr>
+                            <tr>
+                                <th>Thời gian đặt</th>
+                                <td th:text="${#temporals.format(order.createdAt, 'dd/MM/yyyy HH:mm:ss')}">--</td>
+                            </tr>
+                            <tr>
+                                <th>Tổng tiền</th>
+                                <td><strong th:text="${#numbers.formatDecimal(order.totalAmount, 0, 'COMMA', 0, 'POINT') + ' ₫'}">--</strong></td>
+                            </tr>
+                            <tr th:if="${order.note != null and !order.note.isBlank()}">
+                                <th>Ghi chú</th>
+                                <td th:text="${order.note}">--</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header"><h3>Sản phẩm trong đơn</h3></div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Sản phẩm</th>
+                                <th>Mã</th>
+                                <th style="text-align:center">SL</th>
+                                <th style="text-align:right">Đơn giá</th>
+                                <th style="text-align:right">Thành tiền</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:if="${#lists.isEmpty(order.items)}">
+                                <td colspan="5" style="text-align:center;padding:1.5rem;color:var(--muted)">Không có sản phẩm</td>
+                            </tr>
+                            <tr th:each="item : ${order.items}">
+                                <td th:text="${item.product != null ? item.product.name : 'N/A'}">SP</td>
+                                <td><code th:text="${item.product != null ? item.product.code : '—'}">--</code></td>
+                                <td style="text-align:center" th:text="${item.quantity}">1</td>
+                                <td style="text-align:right" th:text="${#numbers.formatDecimal(item.unitPrice, 0, 'COMMA', 0, 'POINT') + ' ₫'}">0</td>
+                                <td style="text-align:right;font-weight:600" th:text="${#numbers.formatDecimal(item.subtotal, 0, 'COMMA', 0, 'POINT') + ' ₫'}">0</td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="4" style="text-align:right;font-weight:700;padding:.85rem 1rem">Tổng cộng:</td>
+                                <td style="text-align:right;font-weight:700;color:var(--primary)"
+                                    th:text="${#numbers.formatDecimal(order.totalAmount, 0, 'COMMA', 0, 'POINT') + ' ₫'}">0</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Cột phải: cập nhật + lịch sử -->
+            <div>
+                <div class="card">
+                    <div class="card-header"><h3>✏️ Cập nhật trạng thái</h3></div>
+                    <div style="padding:1.25rem">
+                        <form th:action="@{/orders/{id}/status(id=${order.id})}" method="post">
+                            <div class="form-group">
+                                <label for="newStatus">Trạng thái mới</label>
+                                <select name="newStatus" id="newStatus" class="form-control">
+                                    <option th:each="s : ${statuses}"
+                                            th:value="${s}"
+                                            th:text="${s}"
+                                            th:selected="${s == order.status}">STATUS</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="note">Ghi chú (tùy chọn)</label>
+                                <textarea name="note" id="note" class="form-control" rows="3"
+                                          placeholder="Lý do thay đổi..."></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary" style="width:100%">
+                                💾 Cập nhật
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header"><h3>📋 Lịch sử thay đổi</h3></div>
+                    <div style="max-height:400px;overflow-y:auto">
+                        <div th:if="${#lists.isEmpty(history)}"
+                             style="padding:1.5rem;text-align:center;color:var(--muted);font-size:.85rem">
+                            Chưa có lịch sử thay đổi
+                        </div>
+                        <div th:each="h : ${history}"
+                             style="padding:.85rem 1.25rem;border-bottom:1px solid var(--border);font-size:.82rem">
+                            <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:.3rem">
+                                <span style="font-weight:600"
+                                      th:text="${(h.oldStatus != null ? h.oldStatus : '?') + ' → ' + h.newStatus}"></span>
+                                <span style="color:var(--primary);font-size:.7rem;background:rgba(99,102,241,.15);padding:.15rem .4rem;border-radius:4px"
+                                      th:text="${h.platform}"></span>
+                            </div>
+                            <div style="color:var(--muted)"
+                                 th:text="${#temporals.format(h.changedAt, 'dd/MM/yyyy HH:mm')}"></div>
+                            <div th:if="${h.note != null and !h.note.isBlank()}"
+                                 style="color:var(--muted);margin-top:.3rem;font-style:italic"
+                                 th:text="'📝 ' + ${h.note}"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
